@@ -4,13 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME</title>
+    <style>
+        img{
+            display: block;
+            height: 100px;
+            width: 100px;
+            background-color:red;
+        }
+    </style>
 </head>
 <body>
+<%- include("utils/header.ejs") %>
     <h1>Welcome to my website!</h1>
-    <h1>Sum is <%= val %></h1>
-    <% if(val == 6){ %>
-        <h2>Nice you got 6</h2>
-    <% } %>
+
+    <% for(let post of data.posts){ %>
+        <img src="<%- post.image %>"%>
+        <p><%= post.likes %>
+        <%= post.comments %></p>
+    <% }%>
+
 </body>
 </html>
-

@@ -64,14 +64,128 @@ app.get("/",(req,res)=>{
 ```
 It will generate random number and send to home.esp
 
-## Using js in .ejs
+## Using Conditional statements of js in .ejs
 We can use javascript in ejs using scriptlet tag (<% %>)
 we can only write javascript in scriptlet tags not html.
+
+IF STATEMENTS
 i.e
 ```sh
+# index.js
+app.get("/",(req,res)=>{
+    let randomval = Math.ceil(Math.random()*6)
+    res.render("home.ejs",{val:randomval})
+    # or
+    # res.render("home.ejs",{randomval})  //Access randomval directly
+
+})
+
+# home.ejs
     <h1>Sum is <%= val %></h1>
     <% if(val == 6){ %>
         <h2>Nice you got 6</h2>
     <% } %>
 ```
 this will give us h2 only when val == 6. we need to write "}" inside another scriptlet tag as we cannot write html tag in it.
+
+For Loops
+i.e
+```sh 
+# index.js
+app.get("/",(req,res)=>{
+    let data = ["apple","grapes","orange"]
+    res.render("home.ejs",{data})
+})
+
+# home.ejs
+   <h1>For loop</h1>
+    <ul>
+    <% for(name of data){ %> 
+        <li><%= name %></li> # Access as variable
+    <% } %>
+    </ul>
+```
+Using for loop we can access elements of array and  print each element.
+
+## Accessing large data (.json) file in ejs
+we can access data from .json file using require()
+i.e
+let data = require("./data.json")
+
+variable data will store json as js object which we can access and pass to ejs files.
+
+Then we can send this data to ejs using render
+i.e
+res.render("home.ejs",{data:data})
+
+to access data for a specific user name we can use parameters and req.params to get specific data and use loop in ejs file
+i.e
+```sh
+# index.js
+app.get("/:username",(req,res)=>{
+    let {username} = req.params
+    let file = require("./data.json") 
+    let data = file[username]  
+    if(data){               #check if data is there 
+        res.render("home.ejs",{data}) # we must use key/value to use value/index with value. i.e data:data[username] 
+    } 
+    else{
+        res.render("nodata.ejs")
+    }
+}) 
+
+# home.ejs
+    <h1>Welcome to instagram </h1>
+    <% for(let post of data.posts){ %>
+        <img src="<%- post.image %>"%>
+        <p><%= post.likes %>
+        <%= post.comments %></p>
+    <% }%>
+```
+
+
+## Including sub templates to templates
+we can use a sub template in our template for repeated code 
+i.e headers and footers
+
+we can do that by using include() inside an ejs tag <%- %>
+i.e
+```sh
+<%- include("header.ejs") %>
+```
+
+i.e
+```sh
+#header.ejs
+<nav style="background-color: aqua;">
+    <div style="display: flex;justify-content: space-between;padding-inline: 10px;;" class="navbar">
+        <div class="left">
+            <h3>LOGO</h3>
+        </div>
+        <div style="display: flex;gap: 20px;" class="right">
+            <p>Link1</p>
+            <p>Link2</p>
+            <p>Link3</p>
+        </div>
+    </div>
+</nav>
+
+# index.js
+app.get("/",(req,res)=>{  
+    res.render("home.ejs")
+})
+
+# home.ejs
+<%-include("header.ejs") %>
+<h1>Welcome to my website!</h1>
+
+```
+
+this will add a nav bar in home.ejs which can be use with other templates too.
+
+we can also add all our sub templates in a folder and keep it inside views folder only.
+
+```sh
+<%- include("folder/header.ejs")%>
+```
+
