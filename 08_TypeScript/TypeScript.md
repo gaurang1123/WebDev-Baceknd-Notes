@@ -186,6 +186,28 @@ function print(num :number) :number {
 
 this will only return a number
 
+### passing functions ass argument 
+we can pass function as argument inside another function, we can also set the type of this argument when passing 
+i.e
+function passed(a: number,b:  number):void{}
+
+function main(a,b,passed:(a: number, b:number)=>void)
+
+we can also save this function type using a type aliase.
+i.e
+type callfunc = (a:number,b:number) => void
+
+we can also do it  using interface
+interface callfun{ (a:number,b:number ): void}
+
+function add(a: number, b: number){
+    console.log(a+b);
+}
+
+function math(a:number,b:number,callback: callfun):void{
+        callback(a,b)
+}
+
 ### contextual typing
 sometime ts will automatically get the type of the parametes
 i.e
