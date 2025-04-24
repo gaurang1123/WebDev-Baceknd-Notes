@@ -186,7 +186,7 @@ function print(num :number) :number {
 
 this will only return a number
 
-### passing functions ass argument 
+### passing functions as argument 
 we can pass function as argument inside another function, we can also set the type of this argument when passing 
 i.e
 function passed(a: number,b:  number):void{}
@@ -715,10 +715,16 @@ there are different types of type guard
 6. User-defined type guard:
 
 ##### User Defined type guard
-a user defined type guard can be defined like
+
+###### Type predicste
+**is** typeguard
+A user defined type guard can be defined like
 function isCat(animal :Cat): animal is Cat{ ...////}
 **: name is string (this is called type predicate)**
 a perdicate should be in form (ArgumentName is Type)
+
+Type predicate is used with a function to determine type of something.
+functio than may return true or false.
 
 ###### Implementation of user-defined guard
 i.e 
