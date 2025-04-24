@@ -571,6 +571,17 @@ we can get key with value 0 using console.log(Direction[0]) /// IMP
 
 ### Generics
 We can set the type of the passing value to be set by typescript automatically as per the input to make code reuseable
+We can create generic types or functions
+
+#### Generic Type
+type DataStorage<T>=
+{
+    storage:T[],
+    add:(data: <T>)=> void
+}
+This a generic type where T can be a number or string or any other data type.
+
+#### Generic Function
 i.e 
 function getFirst<T,S>(array: T[], arr: S[]){
     return array[0];
