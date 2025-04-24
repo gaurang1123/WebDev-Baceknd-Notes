@@ -62,6 +62,13 @@ let ages: number[] = [21,22,23,24,25];
 let task2: Array<string> = ["learn ts","variables","functions","objects"];
 let ages2: Array<number> = [21,22,23,24,25];
 
+This are called **generic type** array 
+i.e
+type Roles = "admin" | "employee" | "manager"
+let people: Array<Roles>;
+now element in people can only be from type Roles.  
+
+
 let tasks3: (number | string)[] = ["learn",22,"create"];
 
 task2.push("create website")
