@@ -154,12 +154,15 @@ In return statement we can only return one individual tag or we can return multi
 i.e return <div> <h1> hello </h1> <button> click </button> </div>
 
 We can use () with return to write from next line as return statement will not recognize anything written from next line.
-i.e return (
+i.e 
+```javascript
+return (
     <div> 
     <h1> hello </h1> 
     <button> click </button> 
     </div>
     )
+```
 
 We can create component and use it inside our App.js like
 i.e for Title inside App.jsx
@@ -687,6 +690,35 @@ useEffect(()=>{
     console.log("executed at every time render")
     },[status]); // will execute every time when variable changes. 
 
+### clean up function of useEffect
+Clean up funciton of useEffect is used to execute function or code when our component is going to re-render.
+It is used to clean up (subscription, Event Listners or timers)
+i.e
+```javascript
+import React, { useEffect, useState } from "react";
+
+function TimerComponent() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCount(prev => prev + 1);
+    }, 1000);
+
+    // 🔄 Cleanup function
+    return () => {
+      clearInterval(timer); // Clean up the interval when component unmounts
+      console.log("Timer cleared");
+    };
+  }, []); // Runs only once on mount
+
+  return <h1>Timer: {count}</h1>;
+}
+
+export default TimerComponent;
+```
+
+This function starts a timer in the begnning and resets when component rerender
 
 
 ## Config driven Ui 
@@ -747,6 +779,7 @@ Body.js (component) where different ui is loaded
 
 ## React Form Handing
 We can create a form and handle the inputs using state and setState functions.
+
 ### Controlled components
 Any component which is handled by react to set there value at change of input using state change it is called controlled component.
 component which uses 
@@ -759,9 +792,10 @@ component which uses
 2. create a state to handle value and set value of html to state.
 3. handle state using a function invoked on onChange and use event to get value of element .
 
-IMP --> Dont use single function for onChange as it will manipulate others value to.
+IMP --> Dont use single function for different onChange as it will manipulate others value to.
 
 i.e
+```javascript
 const [name,setName] = useState("");
 const [selectValue,setSelectVlaue] = useState("");
 const [textArea,setTextValue] = useState("");
@@ -798,8 +832,9 @@ onChange={handleNameChange}/>
 <option value="vue">Vue</option>
 </select>
 
-<textarea value={textArea} onChange={handleTextChange} rows=3></textarea>
+<textarea value={textArea} onChange={handleTextChange} rows="3"></textarea>
 </form>
+```
 
 
 ### Handling form using react-form-hook
@@ -816,11 +851,12 @@ import {useForm} from "react-hook-form"
 const {register,handleSubmit,formState:{error, isSubmitting}} = useForm();
 ```
 
-no we can use them in our form
+now we can use them in our form.
+
 #### register:- 
 It is use to register our form elements (input, select...) so that react-hook-form can track changes in it.
 in this we pass a name and fields which help us to set constraints on our input.
-register(name,fields);
+i.e register(name,fields);
 we need to spread our register() in input.
 i.e 
 ```javascript
@@ -860,6 +896,10 @@ errors{
   name:{
     type:minlength,
     message:"not working"
+  },
+  textarea:{
+    type:minlength,
+    message:"text not working"
   }
 }  
 
@@ -868,7 +908,7 @@ AND
 conditonally add or remove classname to our input to style
 i.e
 ```javascript
- <input className={errors.name?.message ? "name-error" : ""} // classname to show error conditionally
+ <input className={errors.name ? "name-error" : ""} // classname to show error conditionally
   {...register("name",
     { required:true,   
       minLength:{value:6,message:"Not working"}, 
@@ -907,6 +947,7 @@ we can creates route for application using createBrowserRouter by specifing each
   element:"",
   children:{}
 },]
+
 i.e
 import {createBrowserRouter} from "react-router-dom
 
@@ -956,7 +997,7 @@ const App = ()=>{
   )
 }
 
-Now we can use our routes to  access specific components.
+Now we can use our routes to access specific components.
 
 ### Using Link and NavLink
 we can use Link or NavLink instead of <a></a> tag as it will reload whole page.
@@ -1125,7 +1166,7 @@ It help use to handle the query string parameters like
 ?q="how to"
 
 this query is written after a path and we can use useSearchParam to get the query in the component
-useSearchParam return an array which has a object, which has a get method which is used to get parameter value based on name (when have multiple parameters).
+useSearchParam return an array which has a object, which has a get method, which is used to get parameter value based on name (when have multiple parameters).
 i.e 
 const App = ()=>{
   const routes = createBrowserRouter(
@@ -1160,3 +1201,641 @@ return (
 
 export default Search
 
+### <Navigate> component
+we can use Navigate  component to navigate to the path.
+i.e
+if(!user){
+  <Navigate to="/" >
+}
+
+This will navigate us to "/" path if the user is not set.
+we can also set replace prop (without value) to not add the last visited path from where we are navigate into history of browser
+i.e after Login and navigate to another path we do not need to navigate back to the login path. so we can use repace.
+i.e ---> Login.jsx
+if(username=="gaurang" && password=="correct"){
+  <Navigate to="/home" replace />     // This will not add the login path to history so on clicking back btn user cannot go to login path again.
+}
+
+
+
+## Lifting state up
+When we have multiple component with same kind of state variable defined in each. whicch are not in sync to each other.
+If we want them to have same state variable, so to show or share same info we can use sate lifting.
+
+State Lifting: It mean lift state up to nearest common parent and pass state and setState() to all child where we want.
+then we can use setState() to change value in one child and will reflect change in all others too.
+
+For example to share state between two student report component with parent App
+i.e
+      APP  (will have state and setState())
+     /   \
+    /     \ 
+ report   report
+
+1. Lift state to nearest common parent
+import {useState} from "react"
+const App = ()=>{
+  const [marks,setMarks] = useState(70)
+  return (
+    <Report marks={marks} setMarks={setMarks}>
+  )
+}
+const Report =({marks, setMarks})=>{
+  return(
+    <div>
+    <p>show marks: {marks}</p>
+    <button onClick(()=>{setMarks(marks + 1)})> ADD +1 <button>
+    </div>
+  )
+}
+
+## UseContext() hook / Api
+To pass information to child and grand child componenet we used props
+i.e
+APP (props)
+ |
+ |
+ChildA (props)
+ |
+ |
+ChildB (props)
+
+This is called prop drilling
+where we need to pass data to ChildA too even if doesnt want it.
+To avoid this and use/pass data more efficiently we can use useContext()
+
+To use useContext we need to follow this steps
+1. create context using usecontext()
+i.e const UserContext = useContext()
+
+2. create a state or value to pass using useContext().
+i.e 
+const [user,setUser] = useState({name:"gaurang",email:"gau@email.com"});
+
+3. wrap app or top most parent component with contextProvider and pass **value or multiple value as object**, also export the context.
+i.e
+<UserContext.Provider value={{user,setUser}}> 
+<!-- <UserContext.Provider values={user}>  -->
+<ChildA>
+<UserContext.Provider/>
+
+export {UserConstext}
+
+4. in ChildB or where you want to use context,import context and useContext and using useContext(UserContext) we can get value passed from context.
+i.e
+import UserContext from '../../index.js' 
+import {useContext} from 'react'
+
+const {user:{name,email}, setUser} = useContext(UserContext); // if sent i.e value={{user,setUser}}
+return(
+  <>
+  <p>{name}</p>
+  <p>{email}</p>
+  </>
+)
+
+OR
+IF SENNT LIKE
+<UserContext.Provider values={setUser}> 
+we can direclty get setUser.
+
+const setUser = useContext(UserContext)
+
+We can use Context Api like this.
+
+## useRef
+useRef() allow us to store reference of a dom element or a variable thats not needed for rendering(change). inside a object in key  name current.
+
+### refering local variable
+i.e
+let value = useRef()
+It will create a object with key current set as undefined.
+i.e
+value = {
+  current : undefined;
+}
+
+we can change value using --> value.current = 10;
+
+### passing initial value
+we can also pass initial value to set initial value.
+i.e 
+let value = useRef(10) 
+
+will set 
+value = {
+  current:10;
+}
+
+### refering dom element
+we can also refer to a dom element using useRef() and set a attribute ref to our html element and set value to name of ref.
+i.e
+const btn = useRef()
+useEffect(()=>{                             
+  btn.current.style.backgroundColor = "red"      // Must be used inside useEffect as btn will only assigned after component render
+})
+<button ref{btn}>Click me</button>
+
+now our btn.current will have <button> element
+which can be use to style or don anything on it
+i.e 
+btn.current.style.backgroundColor = "red"; 
+
+
+## useMemo() 
+useMemo() is used to memoize/cache the output of a expensive calculation or function. 
+only when state variable passed as dependency changes new calculation will be done and return value.
+If component rerender by any other mean a memoized value is used if value remain same (state variable of parent component).  
+It will return last saved value for same input.
+
+we can use useMemo()
+i.e
+
+let memoizevalue = useMemo(()=>calucativeFunction,[dependency array])
+
+calucativeFunction is the expensive function whose result we want to track.
+and dependency array is all variable whose value change calls the function.
+
+i.e
+```javascript
+  const [numA, setNumA] = useState(0);
+  const [numB, setNumB] = useState(0);
+  const [calAb, setCalAB] = useState({a:0,b:0})
+    function calculate(calAb){
+        for (let i = 0; i < 1000000000; i++) {}
+        console.log(calAb.a);
+        
+        return Number(calAb.a)+Number(calAb.b);
+    }
+  const sumChange = useMemo(()=>calculate(calAb), [calAb],[]);
+   
+
+  return(
+    <div>
+    <input type="number" value={numA} onChange={(e)=>{setNumA(Number(e.target.value))}}/>
+    <input type="number" value={numB} onChange={(e)=>{setNumB(Number(e.target.value))}}/>
+    <button onClick={()=>{(numA != calAb.a || numB != calAb.b) ? setCalAB({a:numA,b:numB}):null }}>Click me</button>  /// must check if object value is changing
+    <p>{sumChange}</p>
+    </div>
+  )
+
+```
+While using useMemo we can only set dependency array value to those at whose value change we want to call calculativeFunction.
+**If we use object we need to check if value is changed before setting the value otherwise it will always rewrite the value of object changing value and calling calculate().**
+
+## memo()
+we can use memo to wrap our child to let it not rerender even if our parent re-render (skipping all jsx conversion/ useeffect calcuations and all...).
+But it will only work if we are not passing any prop which is not changing. 
+**If we are passing prop it can be a primitive type because memo does shallow comparision (only value check not address).** 
+i.e
+```javascript
+import {memo, useState} from 'react'
+
+const Child = memo(()=>{
+    console.log("Child render only once")
+    return(
+      <div>Will not re-render</div>
+    )
+})
+
+const Parent = () =>{
+    const [num,setNum] = useState(0);
+    console.log("Parent render")
+    function handleClick(){
+        setNum(prev => prev + 1);
+    }
+  return(
+    <div>
+    <p> IT will render again </p>
+    <button onClick={handleClick}>Click</button>
+    <Child/>
+    </div>
+  )
+} 
+export default Parent;
+```
+
+In this every time we click btn it will render parent but not child.
+
+### using memo with useMemo()
+when we are passing any function/object prop whose reference will always be different and will rerender our child component.
+But we can use useMemo to prevent this. 
+i.e
+```javascript
+import {memo, useState} from 'react'
+
+const Child = memo(({obj, handleClick})=>{
+    console.log("Child render only once")
+    return(
+      <div>obj: {obj.a}</div>
+    )
+})
+
+const Parent = () =>{
+    const [num,setNum] = useState(0);
+    const obj =  useMemo(()=>{a:"gavu",b:1},[]);
+    const handleClick=useMemo(()=> setNum(prev => prev + 1),[]);
+    console.log("Parent render")
+  
+  return(
+    <div>
+    <p> IT will render again </p>
+    <button onClick={handleClick}>Click</button>
+    <Child obj={obj} handleClick={handleClick}/>
+    </div>
+  )
+} 
+export default Parent;
+```
+
+In noraml way if we even pass handleClick it would  re-render the child but because it is memoised and child is in memo() it does not rerender child.
+
+## useCallback()
+Similar to useMemo with function useCallback is exactly same and is used  for same purpose only  difference between them is useMemo cam momoise different data type but  useCallback is specially for functions.
+we can use it just the same way as useMemo for function
+i.e
+```javascript
+import {memo, useState} from 'react'
+
+const Child = memo(({obj, handleClick})=>{
+    console.log("Child render only once")
+    return(
+      <div>obj: {obj.a}</div>
+    )
+})
+
+const Parent = () =>{
+    const [num,setNum] = useState(0);
+    const handleClick=useCallback(()=> setNum(prev => prev + 1),[]);
+    // OR
+    // function handleClick(){
+    //   setNum(prev => prev + 1)
+    //   }
+    // const handleClick=useCallback(handleCallback,[]);
+    console.log("Parent render")
+  
+  return(
+    <div>
+    <p> IT will render again </p>
+    <button onClick={handleClick}>Click</button>
+    <Child obj={obj} handleClick={handleClick}/>
+    </div>
+  )
+} 
+export default Parent;
+```
+
+## useReducer()
+It is used to maintain functions which are used to operate on state when functions are complex and big to manage.
+We use it when we have complex state to manage 
+i.e
+state={
+  something:something,
+  something:something,
+  something:[something,something,something,],
+  }
+but if we have normal or state which is not complex we can use useState 
+i.e state = 20 OR state="hello"
+
+useReducer is similar to useState which returns a state variable and a function.
+i.e const [state, dispatch] = useReducer(reducer,{count:0}) 
+
+### reducer
+**IMP START**
+reducer performs resetting on state (state is immutable) according to the type it has received. and payload of action
+i.e type = increment => return state+1    OR    type = decrement => return state-1
+or 
+IF complex state={id:1,name:"gaurang",location:"rajkot"}
+type = "change location", payload = "veraval" => return {...state,location=action.payload}
+
+
+**IMP END**
+It takes a reducer function which has two parameters state and action.
+where state would be variable created by a useReducer, and a action which would be a object conataining type key with value of what to do.
+The reducer function will get its action from the dispatch function. 
+i.e
+function reducer(state, action){
+
+  return state
+}
+
+where action would be like {type:"increment"} or {type:"decrement"} which it will receive from dispatch.
+
+### dispatch
+dispatch function is called from the handler function and it should pass type and payload as argument i.e {type:"change location",payload:"veraval"}
+i.e
+()=>{
+  dispatch({type:"increment"})
+}
+
+reducer(state, action)  ==> useReducer(reducer,{count:0}) ==> state & dispatch({type:"increment"})
+      ^                                                                  ∨
+      |                                                                  |
+      --------------------------------------------------------------------
+
+i.e
+```javascript
+import { useReducer } from 'react'
+
+const Reducer = () => {
+  function reducer(state,action){
+    switch (action.type){
+      case "plus":{
+        return {count: state.count+1}
+      }
+      case "minus":{
+        return {count: state.count-1}
+      }
+      default:{
+        return state
+      }
+    }
+  }
+
+  const [state,dispatch] = useReducer(reducer,{count:0})
+  return (
+    <div>
+        <button onClick={()=>{dispatch({type:"plus"})}}>+</button>
+        <p>{state.count}</p>
+        <button onClick={()=>{dispatch({type:"minus"})}}>-</button>
+    </div>
+  )
+}
+
+export default Reducer  
+```
+
+**IMP** --> useReducer is superset of useState. 
+It also returns a state and a function to manipualte state, and it takes a reducer/handler function ans the inital state.
+
+our reducer / handler function have two argument a state and a action.
+A state is what returned by the useReducer and a Action.
+Action is used to define type of action to perform by achecking value of type.
+and a payload if any to change the value of the state.
+
+i.e Action and PAYLOAD for increment in reducer or handler function
+action={type:"Increment",payload:"{count:state.count+1}"} //IF const [state, dispatch] = useReducer(reducer,{count:0})
+
+i.e Action and PAYLOAD for decrement
+action={type:"Decrement",payload:"{count:state.count-1}"} //IF const [state, dispatch] = useReducer(reducer,{count:0})
+
+Dispatch: It is called with type and payload to invoke reducer function and update state according to type and payload.
+
+## Custom Hook
+We can create custom hook by creating a function as HOOK IS A FUNCTION.
+
+1. must start with prefix (use)
+2. we can use built in hooks in it
+3. should not create side effect (side effect must be managed by useEffect outside hook).
+4. create pure function hooks (for same input always generate same output, must not change state variables)
+
+we can create a custom hook to return context value like
+If a UserContext retrun values {username,email,location} to use it we need to import useContext, UserContext in aa seperate file.
+so we can create a hook to return this value and only need to export this hook.
+i.e
+```javascript
+import {useContext, createContext, useContext} from 'react'
+
+// Assume we already have created context
+export const useUserContext = () =>{
+    const context = useContext(UserContext)
+    return context;
+}
+```
+
+To use 
+```javascript
+import {useUserContext} from './App'
+
+const {username,email,location} = useUserContext();
+
+```
+**Error handling with custom hook**
+We ccan throw custom error while creating custom hook
+i.e
+import {useContext, createContext, useContext} from 'react'
+
+// Assume we already have created context
+```javascript
+export const useUserContext = () =>{
+    const context = useContext(UserContext);
+    if(context === undefined){                //Throwing error if undefined
+      throw new Error("Context is Undefined");
+    }
+
+    return context;
+}
+```
+
+## Error Boundries 
+It is a way to catch error and either show or log error in file and also can provide reload btn.
+We can use error boundry in functional components using react-error-boundary package
+using error boundries we can do
+
+1. show error
+2. show specific error message (need component rendering)
+3. reset button to reload boundary
+4. log error and error stack (in console or file).
+
+i.e 
+npm install react-error-boundary
+
+It provides us a component <ErrorBoundary/> which is used to wrap our nearest parent component in which we want to use error boundary (we can wrap particular component too).
+i.e
+```javascript
+import {ErrorBoundary} from "react-error-boundary"
+<ErrorBoundary/>    
+<Parent/>
+<ErrorBoundary/>
+```
+
+### fallback
+To show error to user we can use fallback prop in <ErrorBoundary/> and pass either a html element or a component to show error
+i.e
+```javascript
+import {ErrorBoundary} from "react-error-boundary"
+<ErrorBoundary fallback={<p>"SOMETHING WENT WRONG"</p>} />    
+<Parent/>
+<ErrorBoundary/>
+```
+This will show user a <p> element with text "SOMETHING WENT WRONG", and not a blank white screen.
+
+We can also pass a component instead of html
+i.e
+```javascript
+// -----> Render ERROR Component
+export defalut const ErrorComponent = ()=>{
+  return(
+    <div style={{height:"100vh", margin:"auto"}}>
+    <p>"SOMETHING WENT WRONG"</p>
+    </div>
+  )
+}
+```
+```javascript
+// ------> App.js
+import {ErrorBoundary} from "react-error-boundary"
+<ErrorBoundary fallback={<ErrorComponent/>} />    
+<Parent/>
+<ErrorBoundary/>
+```
+
+### Show specific error using fallbackrender={}
+We can show specific error using fallbackrender. It will give our component access to the error object which we can print error.message
+i.e
+```javascript
+// -----> CUSTOM ERROR PAGE
+export defalut const ErrorComponent = ({error})=>{
+  return(
+    <div style={{height:"100vh", margin:"auto"}}>
+    <p>"SOMETHING WENT WRONG"</p>
+    <p>{error.message}</p> // display error message
+    </div>
+  )
+}
+```
+```javascript
+// ------> App.js
+import {ErrorBoundary} from "react-error-boundary"
+<ErrorBoundary fallbackrender={<ErrorComponent/>} />    // using fallbackrender as it providers error obj.
+<Parent/>
+<ErrorBoundary/>
+```
+
+### Log error and error stack in console using onError={} prop   (NOT IN DISPALY BUT IN CONSOLE)
+we can use fallback and then onerror={logError} to call logError function which will have access to error and info(error stack).
+onerror={} provide error and a info(call stack) which we can need to convert to json to display.
+
+i.e
+```javascript
+// -----> Logging Error in console
+export defalut const ErrorComponent = ({error})=>{
+  return(
+    <div style={{height:"100vh", margin:"auto"}}>
+    <p>"SOMETHING WENT WRONG"</p>
+    <p>{error.message}</p> // display error message
+    </div>
+  )
+}
+```
+```javascript
+// ------> App.js
+import {ErrorBoundary} from "react-error-boundary"
+
+const logError = ({error, info})=>{
+  console.log("Error is ", error.message)
+  console.log("Error stack is ", JSON.stingify(info))     // LOG ERROR STACK
+}
+
+<ErrorBoundary fallbackr={<ErrorComponent/>} onError={logError} />    
+<Parent/>
+<ErrorBoundary/>
+```
+
+### Provide reset button to reload page using resetBoundary hook
+reat-error-boundary hook provide us hook useErrorBoundary() which provide a function resetBoundary() which reloads the nearest boundary.
+We can use this hook inside our error component to have btn click function.
+
+i.e
+```javascript
+// -----> Logging Error in console
+import {useErrorBoundary} from "react-error-boundary" // IMPORT useErrorBoundary
+
+export defalut const ErrorComponent = ({error})=>{
+  const {resetBoundary} = useErrorBoundary();       // useErrorBoundary() to get resetBoundary()
+
+  return(
+    <div style={{height:"100vh", margin:"auto"}}>
+    <p>"SOMETHING WENT WRONG"</p>
+    <p>{error.message}</p>
+    <button onClick={resetBoundary}>TRY AGAIN</button>    // USE RESET BOUNDARY FUNCTION
+    </div>
+  )
+}
+```
+```javascript
+// ------> App.js
+import {ErrorBoundary} from "react-error-boundary"
+<ErrorBoundary fallbackr={<ErrorComponent/>} />    
+<Parent/>
+<ErrorBoundary/>
+```
+
+## Portals in react
+Portal in react allow us to add code into a specific dom parent
+i.e 
+Add code inide poratl class
+
+<div id="root">NOT RENDERED</div>
+<div class="portal"></div>
+
+when ever our component will be rendered it will be added to the portal.
+
+It is very usefull in creating popup and modals(similar to popup but dont allow to interacting with restof site in background unti X closed).
+
+we can create a component to render login from on click by setting a state.
+whenever state is true show login popup when it is false close popup. we can so this by renturning our component inside a ReactDom.createPortal() and passing jsx and dom element of where to load.
+i.e
+return ReactDom.createPortal(
+  <>
+    <div>THIS CODE WILL BE SENT TO DOM ELEMENT PORTAL</div>
+  </>
+  ,document.querySelector(".portal")
+) 
+
+Now it will be rendered into dom element portal when ever component is called.
+i.e
+```javascript
+// -----> LoginPopup.jsx
+import ReactDOM from 'react-dom'
+
+const Login = ({setModal}) => {
+    function handler(){
+        setModal(false)
+    }
+  return ReactDOM.createPortal(       // RETURNING  inside React.DOM  
+    <>
+    <div className='modal-wrapper'></div>
+    <div className='login-popup'>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum
+          dignissimos molestias delectus, unde porro laboriosam officia tempore
+          laborum consectetur ullam incidunt, quia nulla ex assumenda enim.
+          Vitae blanditiis esse obcaecati? A cupiditate deserunt dolorem
+          accusamus nobis quz
+        </p>
+        <button onClick={handler}>Close</button>
+    </div>
+    </>
+    ,document.querySelector(".portal")  // DOM ELEMENT WHERE TO RENDER
+  )
+}
+```
+
+```javascript
+// -----> Header.jsx
+import Login from './Login'
+import { useState } from 'react';
+
+const PropHeader = () => {
+    const [modal, setModal] = useState(false);
+    function openpopup(){
+        setModal(true)
+    }
+  return (
+      <>
+          <nav>
+        <div className="links">
+          <ul>
+            <li><button className="">Home</button></li>
+            <li><button onClick={openpopup}>Login</button></li>
+          </ul>
+        </div>
+      </nav>
+      {modal && <Login modal={modal} setModal={setModal} />}
+      </>
+  )
+}
+```
+
+will add <Login /> inside portal when state is true. and remove when state is false

@@ -41,7 +41,7 @@ let srt = "Hello i am ${name}"
 # EJS Interpolation
 <body>
     <p>This is my about page 1+2</p>
-    <h1>Sum is <%=1+2 %> </h1>
+    <h1>Sum is <%= 1+2 %> </h1>
 </body>
 
 # output
