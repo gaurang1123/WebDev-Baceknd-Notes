@@ -18,6 +18,15 @@ ts-node index.ts
 we can create a project with tsc to get a tsconfig.json file for our ts project.
 
 #### Including and Excluding 
+{   "compilerOptions":{
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules","dist"]
+}
+In this 
+1. src is folder
+2. ** is any other folder in src
+3. *.ts where * is any file in src
 
 ### Data types in typescript 
 
@@ -29,9 +38,11 @@ let age: number = 21;
 let salary: number = 15000.00;
 let isLogged: boolean = true;
 let tasks: string[] = ["learn ts","variables"];
-let id:number | string = 1;
+
+let id: number | string = 1;   // UNION TYPE
 id = 21;
 id = "21";
+
 let home_location: any = "gujarat";
 let current_location: unknown = "rajkot"
 function fun():void {
@@ -49,7 +60,8 @@ role = "intern"
 
 ### Type Annotaions
 We can set the type of a variable using type annotaion, once set it will not be changed.
-we set type annotaions i.e let a :string = "gaurang"
+we set type annotaions i.e 
+let a :string = "gaurang"
 
 ### Type inference 
 when we dont give explicit type using type annotation typescript will automatically set type of variable according to the first value given.
@@ -62,13 +74,14 @@ let ages: number[] = [21,22,23,24,25];
 let task2: Array<string> = ["learn ts","variables","functions","objects"];
 let ages2: Array<number> = [21,22,23,24,25];
 
-This are called **generic type** array 
+**Generic type** array 
+can only be made using Array<T> 
 i.e
 type Roles = "admin" | "employee" | "manager"
 let people: Array<Roles>;
 now element in people can only be from type Roles.  
 
-
+**Union Type** array
 let tasks3: (number | string)[] = ["learn",22,"create"];
 
 task2.push("create website")
@@ -78,9 +91,24 @@ task2.forEach(ele => {
 }); 
 
 let task4: readonly string[] = ["learn ts", "variables", "functions", "objects"];
-// Only useable with (type[]) i.e string[] or generic array
-// As readonly string[] is shorthand for ReadonlyArray<string>
+                            OR
+let task4: ReadonlyArray<string>[] = ["learn ts", "variables", "functions", "objects"];
 
+// readonly string[] is shorthand for ReadonlyArray<string>
+### Tuple type array
+*Type aliase*
+we can define a array with specific type of value at specific index using tuple.
+i.e
+type role = [string, number, boolean];
+This is now a tuple type and we must set all values and also in same order of type.
+i.e 
+let obj: role = ["gavu",12,true]; // all values must be set
+
+though all value must be set in tuple we can also add extra values using push and remove using pop methods only not directly
+so it is recommanded to use **readonly**.
+i.e
+const role: readonly [string, number, boolean] = ["gavu",1,true];
+now we cannot add or remove anything from our tuple
 ### Objects in typescript 
 #### Simple js object
 const User = {
@@ -109,8 +137,8 @@ const User2: {fname: string, age: number}={
     age:21
 }
 
-#### Type Aliases
-#### Reusable Objects using type
+### Type Aliases
+#### Type Alias of object using (type ans interface)
 type Usert = {
     fname: string;
     age: number;
@@ -121,7 +149,7 @@ interface Useri {
     age: number;
 }
 
-#### Reusable Objects using interface 
+#### using object type alias
 const objI: Useri={
     fname:"Gaurang",
     age:21
@@ -133,7 +161,7 @@ const objT: Usert={
 }
 
 
-#### Reusable Objects using type optional element
+#### optional element in type alias of object
 interface UserTop{
     fname: string,
     age?: number
@@ -152,8 +180,7 @@ const objread: UserRead={
     fname:"gaurang",
     age:21
 }
-#### objread.fname = "hardik"; CANNOT CHANGE ERROR 
-
+**objread.fname = "hardik"; CANNOT CHANGE ERROR**
 
 #### nested object with in interface object 
 interface Company{
@@ -206,10 +233,6 @@ type callfunc = (a:number,b:number) => void
 
 we can also do it  using interface
 interface callfun{ (a:number,b:number ): void}
-
-function add(a: number, b: number){
-    console.log(a+b);
-}
 
 function math(a:number,b:number,callback: callfun):void{
         callback(a,b)
@@ -329,10 +352,10 @@ type ID = number | string;
 let fname :ID = "gaurang"
 
 #### interface
-interface is simailar to type but it is used for creating shape for object,
+interface is simailar to type but it is used for creating shape for object or function,
 and use it when required.
 i.e
-
+**interface for object**
 interface User {
     x :number;
     y :string;
@@ -345,6 +368,15 @@ function print(obj :User){
 
 let obj = {x : 21, y : "gaurang"};
 print(obj)
+
+**interface with function**
+interface SumFunction {
+    (a: number, b: number): number;
+}
+
+const add: SumFunction = (x, y) => x + y;
+
+const sum = add(2,3);
 
 #### Using type as interface
 
@@ -476,7 +508,6 @@ type Employee = {
 let emp2 :User & Employee={
     name: "gaurang",
     age: 21,
-    location: "rajkot",
     emp_id: 111,
     emp_location: "rajkot"
 } 
@@ -485,7 +516,7 @@ let emp2 :User & Employee={
 Literals are specific kind of values which can be set as value to variable.
 if only one value is set it behaves like a constant 
 i.e
-let name :"gaurang" = "gaurang"
+let name :"gaurang"; //now name will always be = "gaurang"
 now we cannot change name again.
 
 we can use union to set multiple literal values to be set.
@@ -496,6 +527,7 @@ now any one from the given can be used.
 #### combining literals with other types
 we can also use literals with other types using union like primitive type or interface etc...
 i.e
+```javascript
 interface Options {
   width: number;
 }
@@ -503,11 +535,13 @@ function configure(x: Options | "auto") { .../}
 configure({ width: 100 });
 configure("auto");
 configure("automatic");  //// ERROR 
+```
 
 ### Enums 
 It is a typescript feature which allow to create a set of named constants.
 we can set meaningfull values for the constans in enum.
 i.e
+```javascript
 enum Direction {
   Up,     
   Down,   
@@ -515,7 +549,10 @@ enum Direction {
   Right   
 }
 
+```
+enum creates reverse mapping too so.
 The final code in js will look like
+```javascript
 var Direction={
     0:UP,
     1:Down,
@@ -526,9 +563,10 @@ var Direction={
     Left:2,
     Right:3
 }
+```
 
 Each of the properties in enum are readonly and cannot be change once initalized.
-Properties in enums by default get value frmo 0 to the next number in ascending order.
+Properties in enums by default get value from 0 to the next number in ascending order.
 If value for a property is set in number the next property will get next value.
 i.e in Direction enum values for properties would be
 Up = 0  
@@ -572,12 +610,12 @@ we can get key with value 0 using console.log(Direction[0]) /// IMP
 ### Generics
 We can set the type of the passing value to be set by typescript automatically as per the input to make code reuseable
 We can create generic types or functions
-
+we declare generic type in <> i.e <T>.
 #### Generic Type
 type DataStorage<T>=
 {
     storage:T[],
-    add:(data: <T>)=> void
+    add:(data: T)=> void
 }
 This a generic type where T can be a number or string or any other data type.
 
@@ -601,10 +639,27 @@ This are mostly used with type aliase or interface which are used with objects.
 some are also used for creating union types.
 
 #### Type Utility types
-
+##### type utility with objects
 1. Partial: creates a object type with all properties as optional
+i.e
+```javascript
+type Roles = {Admin: string; Manager: string; Employee: string;};
+type Role = Partial<Roles>;
+```
+
 2. Required: creates a object type with all properties as required
+i.e
+```javascript
+type Roles = {Admin: string; Manager: string; Employee: string;};
+type Role = Required<Roles>;
+```
+
 3. Readonly: creates a object type with all properties as readonly
+i.e
+```javascript
+type Roles = {Admin: string; Manager: string; Employee: string;};
+type Role = Readonly<Roles>;
+```
 
 4. Record: it creates a object type from a union type as specific keys and specific type values from a value union type, where all properties are must.
 i.e
@@ -643,7 +698,7 @@ let obj : Role = {
 }
 console.log(obj);
 ```
-
+##### type utility with union
 7. Exclude: It is used to create a union type from an existing one by exluding given values from already existing union.
 i.e
 ```javascript
@@ -667,8 +722,8 @@ It is used when we use union for setting multiple type.
 i.e 
 ```javascript
 function padding(pad: number | string, input: string) :string{
-    if(typeof input == "number"){
-        return " ".repeat(input);
+    if(typeof pad == "number"){
+        return " ".repeat(pad);
     }
     else{
         return pad + input
@@ -742,7 +797,7 @@ function isCat(animal :Cat): animal is Cat{ ...////}
 a perdicate should be in form (ArgumentName is Type)
 
 Type predicate is used with a function to determine type of something.
-functio than may return true or false.
+function than may return true or false.
 
 ###### Implementation of user-defined guard
 i.e 
