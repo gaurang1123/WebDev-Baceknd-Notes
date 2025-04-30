@@ -108,7 +108,8 @@ though all value must be set in tuple we can also add extra values using push an
 so it is recommanded to use **readonly**.
 i.e
 const role: readonly [string, number, boolean] = ["gavu",1,true];
-now we cannot add or remove anything from our tuple
+now we cannot add or remove anything from our tuple.
+
 ### Objects in typescript 
 #### Simple js object
 const User = {
