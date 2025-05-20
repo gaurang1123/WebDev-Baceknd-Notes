@@ -1,3 +1,130 @@
+### Array Methods
+1. Mutate value original array
+2. Create/Retuns new array
+3. Search & Query methods
+4. Combining/Reduction methods
+5. Helper methods
+
+**Mutate value original array**
+1. push("item):- add item to array's last index.
+2. pop():- remove last item and return it.
+3. shift("removeFirst"):- remove first item.
+4. unshift("addFirst):- add item to first index.
+5. splice(startIdx, deleteIdx, ItemtoAdd):- Adds/removes items at an index	
+i.e
+* *Remove Items*
+const fruits = ['🍎', '🍌', '🍊', '🍇'];
+fruits.splice(1, 2); // Removes '🍌' and '🍊'
+
+console.log(fruits); // ['🍎', '🍇']
+
+* *Add Item without removing*
+const fruits = ['🍎', '🍌', '🍊'];
+fruits.splice(2, 0, '🥝'); // Inserts '🥝' at index 2
+
+console.log(fruits); // ['🍎', '🍌', '🥝', '🍊']
+
+* *Add and Remove Item*
+const fruits = ['🍎', '🍌', '🍊'];
+fruits.splice(1, 1, '🍍', '🍓'); // Removes 1 item at index 1, adds 2 new items
+
+console.log(fruits); // ['🍎', '🍍', '🍓', '🍊']
+
+
+6. sort():- sort the array
+7. reverse():- reverse array
+
+**Create/Retuns new array**
+1. map(callback()):- creates an array by doing some operation on each item
+2. filter(callback()):- creates array returning item matching a condition
+3. slice(startIdx, lastIdx):- return new array by extracts a portion of array 
+4. concat([arrayToAdd]):- return merged arrays
+5. flat(levelOfDepth):- flatten array 1 level deep by default
+i.e
+const nested = [1, [2, 3], [4, [5]]];
+
+const flat1 = nested.flat(); // Default depth=1
+console.log(flat1); // [1, 2, 3, 4, [5]] (only 1 level flattened)
+
+const flat2 = nested.flat(2); // Depth=2
+console.log(flat2); // [1, 2, 3, 4, 5] (fully flattened)
+
+6. flatmap():- map()+flat() only 1 level deep
+i.e
+const arr2 = ["it's sunny", "it's rainy"]; 
+const words = arr2.flatMap(sentence => sentence.split(" "));  //MAP FIRST THAN FLAT
+console.log(words); // Output: ["it's", "sunny", "it's", "rainy"] 
+
+**Search & Query methods**
+1. find(callback()):- retuns first item matching condition.
+2. findIndex(callback()):- retuns index of item which matches condtion
+3. includes("item"):- check if item exist
+4. indexOf("item"):- returns the first index of item if is present
+5. some(callback()):- check if any item passes a condition and return boolean
+6. every(callback):- check if every item passes a condition and return boolean
+
+**Combining/Reduction methods**
+1. reduce(callback()):- reduce array to single element by performing operation to all
+2. reduceRight(callback()):- reduce from right
+3. join("Seperator"):- convert whole array into string and add a seperator passed as argument
+
+**Helper methods**
+1. forEach(callback()):- loop through each item don't retun
+2. Array.isArray(array):- if is array return true/false
+3. Array.from(Iterables):- cretas a new array from iterable items. i.e string, array, set, nodelist, {}
+
+### String Methods
+1. Extract / slice 
+2. search & check
+3. transform string
+4. convert to array
+
+**Extract / slice**
+1. slice(startIdx, endIdx):- Gets substring (end not included).
+i.e 
+"hello".slice(1,3) → "el"
+"hello".slice(-3, -1) → "ll"
+"hello".slice(2) → "llo"
+
+2. substring(startIdx, endIdx):- similar to slice don't include negative index.
+i.e 
+"hello".substring(-3, 4); → "hell" //(treats -3 as 0)
+
+**search & check**
+.inlcudes(text):- return true if exist.
+i.e "hello".includes("ell") → true
+
+.indexOf(text):- return index of text (first occurance) if exist.
+i.e "hello".indexOf("l") → 2
+
+.startsWith(text):- return true if begins with text.
+i.e "hello".startsWith("he") → true
+
+.endsWith(text):- return true if ends with text.
+i.e "hello".endsWith("lo") → true
+
+**transform**
+.toUpperCase():- convert string into upper case.
+.toLowerCase():- convert string into lower case.
+
+.trim():- remove spaces from start and end.
+
+.replace(old, new):- replaces the oldWord to newWord in string.
+i.e   "hi".replace("i", "ello") → "hello"
+
+.repeate():- repeate a string 
+i.e  "ha".repeat(3) → "hahaha"
+
+**convert to array**
+.split:- convert string into array.
+i.e  "a,b,c".split(",") → ["a","b","c"]
+
+#### IMP STRING TIPS
+Need to extract? → .slice()
+Searching? → .includes() or .indexOf()
+Cleaning text? → .trim() + .toLowerCase()
+Breaking data? → .split()
+
 ### this in functions
 #### this in normal function 
 Normal function has there own but it only refers to this of from where function is being called.

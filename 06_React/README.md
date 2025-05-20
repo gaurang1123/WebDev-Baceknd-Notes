@@ -1,3 +1,70 @@
+# TOPICS COVERED
+
+1. [Prerequisite & bundler with some config](#thinks-to-know-before)
+2. [How react works behind](#Using-and-understanding-react-cdn-and-how-react-work-bts)
+3. [Setting react locally](#setting-react-locally)
+4. [Folder structure](#folder-structure)
+5. [Basic Syntax](#Basic-syntax-of-jsx-and-App.jsx )
+6. [Importing files](#importing-a-file)
+   - [Named/Multiple exports](#multiple-export-or-named-export)
+   - [Default exports](#single-OR-default-export)
+   - [Exporting both single and default and Importing](#Exporting-both-single-and-default-and-Importing)
+7. [Using javascript in jsx](#using-javascript-in-jsx)
+8. [Structuring and reusing a react components](#structuring-and-reusing-a-react-components)
+9. [React Fragment](#react-fragment)
+10. [React Fragment](#react-fragment)
+11. [Rendering listarray](#rendering-listarray)
+12. [Conditional rendering](#conditional-rendering)
+13. [One and two way data binding and event handing and input taking](#one-and-two-way-data-binding-and-event-handing-and-input-taking)
+14. [Usestatehooks in react](#usestatehooks-in-react)
+    - [Updater function](#updater-function)
+    - [Update object using useState](#update-object-using-usestate)
+15. [Useeffect](#useeffect)
+    - [Cleanup function of useSEffect](#cleanup-function-of-useeffect)
+16. [Config driven ui](#config-driven-ui)
+17. [React form handing](#react-form-handing)
+    - [Controlled components](#controlled-components)
+    - [Handling form in react](#handling-form-in-react)
+18. [Handling form using react form hook](#handling-form-using-react-form-hook)
+    - [Register](#register)
+    - [Handlesubmit](#handlesubmit)
+    - [Errors](#errors)
+    - [Prevent multiple submission](#prevent-multiple-submission)
+19. [React router dom](#react-router-dom)
+    - [Creating routes](#creating-routes)
+    - [Using routes](#using-routes)
+    - [Using link and navlink](#using-link-and-navlink)
+    - [Diff btw link vs navlink](#diff-btw-link-vs-navlink)
+    - [Parameter routes and useparams](#parameter-routes-and-useparams)
+    - [Useparams](#useparams)
+    - [Nested routes and outlet](#nested-routes-and-outlet)
+    - [Creating nested routes](#creating-nested-routes)
+    - [Use nested component using outlet](#use-nested-component-using-outlet)
+    - [Using usenavigate for navigation through button](#using-usenavigate-for-navigation-through-button)
+    - [Error page handling 404](#error-page-handling-404)
+    - [Usesearchparams](#usesearchparams)
+    - [Search query query](#search-query-query)
+20. [Lifting state up in component](#lifting-state-up-in-component)
+21. [useContext hook api](#usecontext-hook-api)
+22. [useRef](#useref)
+    - [Refering local variable](#refering-local-variable)
+    - [Passing initial value](#passing-initial-value)
+    - [Refering dom element](#refering-dom-element)
+23. [useMemo](#usememo)
+    - [Memo](#memo)
+    - [Using memo with usememo](#using-memo-with-usememo)
+24. [useCallback](#usecallback)
+25. [useReducer](#usereducer)
+    - [Reducer](#reducer)
+    - [Dispatch](#dispatch)
+26. [Custom hook](#custom-hook)
+27. [Error boundries](#error-boundries)
+    - [Fallback](#fallback)
+    - [Show specific error using fallbackrender](#show-specific-error-using-fallbackrender)
+    - [Log error and error stack in console using onerror prop not in dispaly but in console](#log-error-and-error-stack-in-console-using-onerror-prop-not-in-dispaly-but-in-console)
+    - [Provide reset button to reload page using resetboundary hook](#provide-reset-button-to-reload-page-using-resetboundary-hook)
+28. [Portals in react](#portals-in-react)
+
 # Thinks to know before
 ## Bundeler working
 Bundlers like parcel help us to optimise our code and let us use our code in realtime using development server
@@ -94,7 +161,7 @@ inside html add type="module" in script tag as index.js is a module file.
 use parcel to deploy server with an entry point (index.html)
 i.e --> npx parcel index.html
 
-## conversion of react fiunctional components -> React.createElement -> html(dom) 
+## conversion of react functional components -> React.createElement -> html(dom) 
 using functional component we can return React.createElement type of code (converted by babel before returing) to our root.render().
 before returning babel will convert our code into react.createElement type of code and send it further.
 inside our component we can also call another component (as a function() call) or load it as component 
@@ -123,7 +190,7 @@ To run react app
 npm run dev
 ```
 
-## Code structure and flow in React app
+## Folder Structure
 
 Important folder is src/ 
 In which important files are
@@ -199,7 +266,7 @@ this code will render Title and Description in App.
 ## importing a file
 To import a file we need to first export it using export keyword in the file
 
-### multiple export / named export
+### multiple export OR named export
 
 In react we can define multiple component in a single jsx file and export each component but then we have to import it using {}.
 i.e
@@ -229,7 +296,7 @@ import {Description} from "./Components"
 
 ```
 
-### single / default export
+### single OR default export
 for Title component we can export it using 
 ```sh
 
@@ -254,7 +321,7 @@ then we need to import it in App.jsx using
 import Title from "./Title"
 ```
 
-### Exporting both single and default
+### Exporting both single and default and Importing
 
 We can also have both single and default export in same file and can import it in App.
 we have to use import for single component like {comp1, comp2} and default using only name.
@@ -317,7 +384,7 @@ function Title(){
 ```
 this will evaluate 2*2 inside {} to give 4 and give name in uppercase.
 
-## Structuring react components
+## Structuring and reusing a react components
 
 We must import repeating component into one component and then use that one to render in App.jsx
 for a product with description and title we must made it one and then render it in App.jsx 
@@ -620,14 +687,14 @@ after last call count will be updated to 1
 So we can use updater function / pass a function to update count value
 i.e
 
-setCount(preValue => preValue + 1)     #setCount(0 => 0 + 1)
-setCount(preValue => preValue + 1)     #setCount(1 => 1 + 1)
-setCount(preValue => preValue + 1)     #setCount(2 => 2 + 1)
+setCount((preValue) => preValue + 1)     #setCount(0 => 0 + 1)
+setCount((preValue) => preValue + 1)     #setCount(1 => 1 + 1)
+setCount((preValue) => preValue + 1)     #setCount(2 => 2 + 1)
 
 updater function takes pending state to calculate next state.  # current state = 0, pending state = 0, 1 ,2 (each after function call)
 react puts updater function into queue and execute all at next render.
 
-It is good practice to use updater function even for single update
+It is good practice to use **updater function even for single update** 
 
 
 ## Update object using useState()
@@ -644,14 +711,17 @@ how to change using setCar()
 
 ```sh
     function change(e){
-    setCar(c => ({...car,year : e.target.value}))
+    setCar(prevCar => ({...prevCar,year : e.target.value}))
   }
 
     <p>Car is {car.year} {car.brand} {car.model}</p>
     <input type="number" value={car.year} onChange={change} />
 ```
 
-Because we cannot use car.year directly in {} jsx. we need to use spread car object.
+Because we should not change in reference type i.e (array, object, etc..) i.e {...car,year:21} as it will not change the reference of the object hence react will not nbe able to know about change in object and will not reredner it.
+so we should pass a new object i.e {...prevCar, year:21} 
+or
+{brand:"Ford", model:"mustang", year:32} defining all existing and changing year properties
 
 
 ## useEffect
@@ -691,7 +761,7 @@ useEffect(()=>{
     },[status]); // will execute every time when variable changes. 
 
 ### clean up function of useEffect
-Clean up funciton of useEffect is used to execute function or code when our component is going to re-render.
+Clean up funciton of useEffect is used to execute function or code when our component is going to unmount or rerender.
 It is used to clean up (subscription, Event Listners or timers)
 i.e
 ```javascript
@@ -765,7 +835,7 @@ Body.js (component) where different ui is loaded
     <div className="search_input">
     <input type="text"
     value={searchtxt}
-    onChange={(e)=>{setSeacshTxt(e.target.value)}}/>
+    onChange={(e)=>{setSearchTxt(e.target.value)}}/>
     <button onClick={()=>{filter(searchtxt)}}>Search</button>
     </div>
 
@@ -790,7 +860,7 @@ component which uses
 ### Handling Form in react
 1. write html and add value and onChange.
 2. create a state to handle value and set value of html to state.
-3. handle state using a function invoked on onChange and use event to get value of element .
+3. handle state using a function invoked on onChange and use event to get value of element.
 
 IMP --> Dont use single function for different onChange as it will manipulate others value to.
 
@@ -942,6 +1012,8 @@ npm i react-router-dom
 
 ### Creating Routes 
 we can creates route for application using createBrowserRouter by specifing each route in an array as object like
+1. create route
+2. use <RouterProvider routes={routes} />
 [{
   path:"",
   element:"",
@@ -1272,7 +1344,7 @@ i.e const UserContext = useContext()
 i.e 
 const [user,setUser] = useState({name:"gaurang",email:"gau@email.com"});
 
-3. wrap app or top most parent component with contextProvider and pass **value or multiple value as object**, also export the context.
+3. wrap app or top most parent component with <context.Provider> and pass **value or multiple value as object**, also export the context.
 i.e
 <UserContext.Provider value={{user,setUser}}> 
 <!-- <UserContext.Provider values={user}>  -->
@@ -1295,7 +1367,7 @@ return(
 )
 
 OR
-IF SENNT LIKE
+IF SENT LIKE
 <UserContext.Provider values={setUser}> 
 we can direclty get setUser.
 
@@ -1776,14 +1848,17 @@ It is very usefull in creating popup and modals(similar to popup but dont allow 
 we can create a component to render login from on click by setting a state.
 whenever state is true show login popup when it is false close popup. we can so this by renturning our component inside a ReactDom.createPortal() and passing jsx and dom element of where to load.
 i.e
+```javascript
 return ReactDom.createPortal(
   <>
     <div>THIS CODE WILL BE SENT TO DOM ELEMENT PORTAL</div>
   </>
   ,document.querySelector(".portal")
 ) 
+```
 
 Now it will be rendered into dom element portal when ever component is called.
+**Full working example**
 i.e
 ```javascript
 // -----> LoginPopup.jsx
@@ -1839,3 +1914,102 @@ const PropHeader = () => {
 ```
 
 will add <Login /> inside portal when state is true. and remove when state is false
+
+## Redux React-Redux
+redux and react-redux is a toolkit used for statemanagement in our react application (similar to contextApi).
+We can use ContextApi as well as react-redux as per requirement.
+
+to use react redux we need to follow step.
+
+1. Create Slices
+  1. useCreate slice and give name, initialState and reducers{methods}
+  2. export actions (action.type) and slice.reducer (all methods)
+
+2. Create/Configure Store
+  1. import slice.reducer
+  2. create store using configureStore({reducer{slice.reducer}})
+  3. export store
+
+3. Provide Store
+  1. import Provider and store in index.tsx / most parent
+  2. wrap main component using <Provider store={store}>
+
+4. Consume slice and dispatch
+  1. import actions (action.types) and useDispatch and useSelector
+  2. get slice state using useSelector((stare)=>state.slice) // slice will be available automatically from provider
+  3. get dispatch using useDispatch()
+  4. call dispatch and pass/call the action. dispatch(increment())
+
+
+i.e 
+<!-- CounterSlice.ts -->
+```javascript
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+interface initalstate{
+    counter:number
+}
+const initialState:initalstate={
+    counter:0
+}
+
+const sliceCounter = createSlice({
+    name: "counter",
+    initialState,
+    reducers: {
+        increment:(state)=>{
+            state.counter++
+        },
+        decrement:(state)=>{
+            state.counter--
+        },
+        add:(state,action: PayloadAction<number>)=>{
+            state.counter = state.counter + action.payload
+        },
+        minus:(state,action: PayloadAction<number>)=>{
+            state.counter = state.counter - action.payload
+        },
+    },
+})
+
+export const {increment,decrement,add,minus} = sliceCounter.actions
+export default sliceCounter.reducer;
+```
+<!-- Store.ts -->
+```javascript
+import { configureStore } from "@reduxjs/toolkit";
+import sliceCounterReducer from "./CounterSlice"
+import SliceAuth from "./AuthSlice"
+
+const store = configureStore({
+    reducer:{
+        sliceCounter: sliceCounterReducer,
+        sliceAuth: SliceAuth   
+    }
+})
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+export default store;
+```
+<!-- Component.tsx -->
+```javascript
+import { useDispatch, useSelector } from "react-redux"
+import { RootState,AppDispatch } from "../store/store" 
+import { increment,decrement } from "../store/CounterSlice";
+
+const Counter = () => {
+    const countSlice = useSelector((state: RootState)=>state.sliceCounter);
+    const dispatch = useDispatch<AppDispatch>()  
+  return (
+    <>
+    <div className="counter">
+    <p>{countSlice.counter}</p> 
+    <button onClick={()=>{dispatch(increment())}}>+</button>
+    <button onClick={()=>{dispatch(decrement())}}>-</button>
+    </div>
+    </>
+  )
+}
+
+export default Counter
+```
