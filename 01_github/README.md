@@ -22,7 +22,7 @@ git status  #show status of all 4 stages of all files in project
 1. Untracked :- when a new file is added into git project folder it is untracked. we need to track it first.
 this commands are used to track a particular file or all files in folder from project using (git add) to make them tracked.
 
-2. Unmodified :- Files which don't have any change in them.
+2. Unmodified :- Files which don't have any change in them or are added and committed.
 
 3. Modified :- Any change done in a file makes it a modified file.
 
