@@ -245,3 +245,43 @@ i.e
 ```sh
 git log --follow '.\react\filename.md'
 ```
+
+## GIT STASH
+Git stash is used to temporarily save uncommitted **(tracked or untracked)** changes and reset to last commit
+### Create Stash 
+we can create a stash using
+```sh
+git stash
+OR
+git stash push -m "stash created"
+```
+**This will revert all your changes which are made after last commit.**
+
+### Get Stash list
+```sh
+git stash list
+```
+
+### Apply changes back (stash changes)
+To apply your changes back on to your code we can use
+```sh
+git stash apply
+OR 
+# git stash apply STASH_NUMBER
+git stash apply 1
+```
+
+### Apply changes back and delete stash
+To apply your changes back on to your code and delete stash we can use
+```sh
+git stash pop
+```
+
+### Delete stash 
+To delete stash we can use  
+```sh
+# git stash drop STASH_CODE 
+git stash drop 1
+OR
+git stash clear
+```
