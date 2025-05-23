@@ -219,3 +219,19 @@ TO also delete changes made in commit from code we can do
 git reset --hard hash_code
 ```
 
+## GIT LOG
+### We can see history of changes made using (git log )
+i.e 
+```sh
+git log 
+```
+### We can see history of changes made in a particular file using (git log file_name) 
+i.e 
+```sh
+git log '.\react\filename.md'
+```
+### we can also log history with change in file name and location using (git log --follow file_name)
+i.e
+```sh
+git log --follow '.\react\filename.md'
+```
