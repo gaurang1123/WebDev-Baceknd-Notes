@@ -176,7 +176,7 @@ git pull origin main
 ```
 
  
-## FIXING MISTAKES
+## GIT RESET (FIXING MISTAKES)
 
 ### Case 1: Staged Changes
 ```sh
@@ -214,6 +214,16 @@ git reset hash_code
 ```
 It will reset the commit 
 
+### --hard reset
+Hard rest means all the changes made in files will be revert backed.
+
+#### Case 1: hard Reset the stages changes
+To revert back changes of all staged file which are not commited 
+```sh
+git reset --hard
+```
+
+#### Case 1: hard Reset the stages changes
 TO also delete changes made in commit from code we can do
 ```sh
 git reset --hard hash_code
