@@ -281,7 +281,7 @@ git stash pop
 To delete stash we can use  
 ```sh
 # git stash drop STASH_CODE 
-git stash drop 1
+git stash drop 1 
 OR
 git stash clear
 ```
