@@ -2,3 +2,19 @@
 **/package-lock.json
 **/node_modules
 **/package-lock.json
+**/react practice
+**.json
+**.html
+**.ts
+**.js
+**.sql
+**.py
+**.css
+**.ejs
+
+!00_Practice projects/*html
+!00_Practice projects/*ts
+!00_Practice projects/*js
+!00_Practice projects/*css
+!00_Practice projects/*ejs
+!00_Practice projects/**/*.json

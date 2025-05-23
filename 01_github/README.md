@@ -1,5 +1,13 @@
 # GITHUB
 
+#### init (initialize a local folder as git repo)
+To make or initalize a local folder into a git repo we can locate to folder using cd command and use git init to initalize it.
+i.e
+```sh
+cd Folder_name
+git init
+```
+
 #### Stages of Files in git 
 1. UnTracked
 2. UnModified
@@ -12,7 +20,7 @@ git status  #show status of all 4 stages of all files in project
 ```
 
 1. Untracked :- when a new file is added into git project folder it is untracked. we need to track it first.
-this commands are used to track a particular file or all files in folder from project.
+this commands are used to track a particular file or all files in folder from project using (git add) to make them tracked.
 
 2. Unmodified :- Files which don't have any change in them.
 

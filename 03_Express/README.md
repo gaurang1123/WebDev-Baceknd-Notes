@@ -4,7 +4,7 @@ It is used to create web server using nodejs.
 
 ## Creating an Express app
 
-T0 create express app we need to first require express and create app using
+To create express app we need to first require express and create app using
 ```sh
 const express = require("express");
 
