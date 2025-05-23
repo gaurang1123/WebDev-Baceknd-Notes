@@ -1,6 +1,6 @@
 # GITHUB
 
-#### init (initialize a local folder as git repo)
+## init (initialize a local folder as git repo)
 To make or initalize a local folder into a git repo we can locate to folder using cd command and use git init to initalize it.
 i.e
 ```sh
@@ -8,7 +8,7 @@ cd Folder_name
 git init
 ```
 
-#### Stages of Files in git 
+## Stages of Files in git and (adding and commiting them)
 1. UnTracked
 2. UnModified
 3. Modified
@@ -26,7 +26,7 @@ this commands are used to track a particular file or all files in folder from pr
 
 3. Modified :- Any change done in a file makes it a modified file.
 
-###### we need to add all UNTRACKED and MODIFIED Using cmd 
+### we need to add all UNTRACKED and MODIFIED Using cmd 
 
 ```sh
 git add file name
@@ -39,9 +39,8 @@ git add .
 git commit -m "Message"
 ```
 Once committed all files are changed finally.
------------------------------------------------------------------------------------------------------------------------------
 
-## ADD LOCAL REPO TO GITHUB
+## ADD AND COMMITING LOCAL REPO TO GITHUB
 Now we can push this changes to our git repository.
 How to add local repo to github
 
@@ -78,7 +77,7 @@ git commit -m "message"
 git push origin main # main is name of branch. and origin is remote (link) to repo
 ```
 
-## SETTING UPSTREAM 
+## SETTING UPSTREAM and pushing to branch
 Shortcut for command
 ```sh 
 git push -u origin main
@@ -88,29 +87,29 @@ Now we need to only do
 git push
 ```
 to push into origin main without specifying origin.   
--------------------------------------------------------------------------------------------------------------
+
 
 ## GITHUB BRANCHES
 
-1.
+1. Get branch name 
 ```sh
 git branch # get branch name
 ```
-2.
+2. Rename Branch
 ```sh
 git branch -m main # rename branch name to "main"
 ```
-3.
+3. Create a new Branch
  ```sh
  git checkout -b features # create a new branch of name --> features
  ```
 
- 4.
+ 4. Navigate or checkout Branch
  ```sh
  git checkout features # to navigate to the branch --> features
  ```
 
- 5.
+ 5. Delete Branch
  ```sh
  git checkout main # to navigate to main branch
  git checkout -d features # Delete features branch. WE NEED TO NAVIGATE TO ANOTHER BRANCH BEFORE DELETE.
@@ -134,10 +133,21 @@ git push # now every time we need to just use git push only.
 git push origin features 
 ```
 
-### COMPARING & MERGING BRANCHES
-```sh
-git diff main #if you are in features branch
-```
+### Comparing changes in file (diff)
+
+#### Difference in *(not staged)* file
+we can compare of see file changes in **non** tracked/staged files using 
+git diff file_path
+git diff ".\09Next\Readme"
+
+**any change in file will be shown with deletion and insertion details**
+
+#### Difference in *(staged)* file
+we can compare of see file changes in tracked/staged files using 
+git diff file_path
+git diff ".\09Next\Readme"
+
+
 
 ### MERGING BRANCHES USING MERGE CMD
 To merge using merge cmd 
@@ -154,6 +164,8 @@ IF there are conflicts we need to either keep both or keep any one changes
 *. If it doesn't have a conflict(when main branch has change in same file ) with another pull request you can MERGE PULL REQUEST.
 *. PULL REQUEST IS A COMMIT IN ITSELF so you need to click confirm merge.
 
+
+
 ## PULLING FROM GITHUB
 
 To update your local repo with changes in github remote repo.
@@ -166,14 +178,14 @@ git pull origin main
  
 ## FIXING MISTAKES
 
-* Case 1: Staged Changes
+### Case 1: Staged Changes
 ```sh
 git reset filename  # reset all the staged changes mande using add cmd
     or
 git reset
 ```
 
-* Case 2: Committed Changes (ONE COMMIT)
+### Case 2: Committed Changes **(ONE COMMIT)**
 ```sh
 git reset HEAD~1
 ```
@@ -188,7 +200,7 @@ It will undo the last commit i.e
 
 HEAD Points to last commit once we run cmd it will undo last commit and point to the second last commit.
 
-* Case 3: Committed Changes (MANY COMMIT)
+### Case 3: Committed Changes **(MANY COMMIT)**
 
 To check position of HEAD and hash of commits 
 ```sh
@@ -206,3 +218,4 @@ TO also delete changes made in commit from code we can do
 ```sh
 git reset --hard hash_code
 ```
+
