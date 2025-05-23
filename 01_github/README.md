@@ -199,7 +199,7 @@ This will fetch all branches and store it in origin/main and let use it to diff 
 ```sh
 git diff git diff main origin/main
 ```
-### GIT MERGE SOECIFIC FILE
+### GIT MERGE SPECIFIC FILE
 To merge specifi file we can use 
 ```sh
 git fetch origin
