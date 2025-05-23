@@ -77,6 +77,28 @@ git commit -m "message"
 git push origin main # main is name of branch. and origin is remote (link) to repo
 ```
 
+## GIT REMOTE
+Git remote is the used to manage remote repositories (github,bitbucket etc..)
+### ADD A REMOTE
+```sh
+git remote add <name> <url> 
+```
+In this name is generally origin
+### LIST ALL REMOTE
+```sh
+git remote -v
+```
+### REMOVE REMOTE
+```sh
+git remote remove <name>
+```
+### RENAME REMOTE
+```sh
+git remote rename <oldname> <newname>
+```
+
+
+
 ## SETTING UPSTREAM and pushing to branch
 Shortcut for command
 ```sh 
@@ -166,15 +188,46 @@ IF there are conflicts we need to either keep both or keep any one changes
 
 
 
-## PULLING FROM GITHUB
-
-To update your local repo with changes in github remote repo.
-we need to run pull cmd
-
+## GIT FETCH, GIT MERGE, GIT PULL
+### GIT FETCH
+We can fetch the changes from origin (github) which will not be applied on local but is used to check or diff. using
+i.e
 ```sh
-git pull origin main
+git fetch origin 
 ```
-
+This will fetch all branches and store it in origin/main and let use it to diff the current file using
+```sh
+git diff git diff main origin/main
+```
+### GIT MERGE SOECIFIC FILE
+To merge specifi file we can use 
+```sh
+git fetch origin
+git checkout origin/main -- path/to/file.txt
+```
+### GIT MERGE (ALL CHANGES)
+Using merge we can merge all changes in the origin/main file 
+We can merge the changes in origin into our  local using git merge using
+```sh
+git merge 
+``` 
+### GIT PULL
+using git pull we can fetch and merge the changes at same using single command using
+```sh
+git pull origin # pull from branch similar to your local
+OR
+git pull origin main # pull from main branch
+OR
+git pull origin features # pull from features branch
+```
+#### GIT PUll --REBASE
+It is used to first write changes from origin to local and than write your changes on to it.
+any conflict will be shown in Editor to change.
+```sh
+git pull origin --rebase
+OR
+git pull --rebase
+```
  
 ## GIT RESET (FIXING MISTAKES)
 
