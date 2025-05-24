@@ -81,20 +81,23 @@ Bundles all assets too like images and fonts etc...
 ## Browserlist
 It is written in package.json, it helps dependency and bundlers like parcel, babel or postcss etc to know what browser we want to support.
 i.e
+```json
 "browserslist": [
   ">0.5%",
   "last 2 versions",
   "not dead"
 ]
-
+```
 ## Remove console.log automatically
 babel can help you remove log automatically by using it plugin.
 1. npm install --save-dev babel-plugin-transform-remove-console
 2. Add plugin into package.json
 i.e
+  ```json
   "babel": {
     "plugins": ["transform-remove-console"]
   }
+  ```
 
 
 # REACT 
@@ -110,21 +113,25 @@ we can use react cdn links and use it in our index.html
 It will give us access to React and ReactDOM object which react use to create and render (add into dom) element.
 
 we can create a react html element using
+```javascript
 const heading =  React.createElemnet("h1",{id:"head1"},"content");
-
+```
 and we can create a root element using 
+```javascript
 const root = ReactDom.createRoot(document.getElementById("root"));
-
+```
 and then render our elemmnt into the root using
 root.render(heading)
 
 we can add multiple child element inside the html element by passing [] (array).
 i.e
 
+```javascript
 const heading1 =  React.createElemnet("h1",{id:"head1"},"content");
 const heading2 =  React.createElemnet("h1",{id:"head2"},"content");
 const container =  React.createElemnet("div",{id:"container"},[heading1,heading2]);
 root.render(container);
+```
 
 ## Imp
 Render will overwrite everything inside root.
@@ -132,8 +139,6 @@ React component are just objects.
 when creating using createElement() we pass element type, props, children.
 props will be any attribute to set.
 children will be either a text content or another element.
-
-
 
 ## Creating own react server using parcel
 Parcel is a bundling tools help use to bundel our application i.e 
@@ -148,14 +153,15 @@ create a index.html and index.js
 inside index.js import react and react-dom/client
 create a root and element and render element in root
 i.e
+```javascript
 import React from "react"
 import ReactDOM from "react-dom/client"
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const heading = React.createElement("h1",{},"Heading 1");
 console.log(heading)
 root.render(heading)
+```
 
 inside html add type="module" in script tag as index.js is a module file.
 use parcel to deploy server with an entry point (index.html)
@@ -166,27 +172,29 @@ using functional component we can return React.createElement type of code (conve
 before returning babel will convert our code into react.createElement type of code and send it further.
 inside our component we can also call another component (as a function() call) or load it as component 
 i.e
+```javascript
 const Title = ()=>(<div><h1>Functionnal head</h1></div>);
 const vartitle = (<div><h1>Functional head</h1></div>);
 const LoadTitle = ()=>(<div>Here title is loaded like {title} or <Title/></div>);
 root.render(LoadTitle);
+```
 
 in above we called Title as a function() call and also as component both return js code (React.createElement) into the LoadTitle component and hence it is not required to convert them again at render as are already converted.
  
 ## Setting react locally
 
-```sh
+```javascript
 npm create vite@latest
 ```
 after running above command select react and javascript.
 
 Then install node_modules from package.json using 
-```sh
+```javascript
 npm install
 ```
 
 To run react app 
-```sh
+```javascript
 npm run dev
 ```
 
@@ -215,10 +223,16 @@ Rules:
 4. using className to give class to html tags
 
 In return statement of component we need to have closing tag for an opening tag. we can use different syntax
-i.e <button> </button>  OR </button>
+i.e 
+```javascript
+<button> </button>  OR </button>
+```
 
 In return statement we can only return one individual tag or we can return multiple tag as children to a single div
-i.e return <div> <h1> hello </h1> <button> click </button> </div>
+i.e 
+```javascript
+return <div> <h1> hello </h1> <button> click </button> </div>
+```
 
 We can use () with return to write from next line as return statement will not recognize anything written from next line.
 i.e 
@@ -234,7 +248,7 @@ return (
 We can create component and use it inside our App.js like
 i.e for Title inside App.jsx
 
-```sh
+```javascript
 function Title(){
   return(
     <div>
@@ -270,7 +284,7 @@ To import a file we need to first export it using export keyword in the file
 
 In react we can define multiple component in a single jsx file and export each component but then we have to import it using {}.
 i.e
-```sh
+```javascript
 # Components.jsx
 
 export function Title(){
@@ -298,8 +312,7 @@ import {Description} from "./Components"
 
 ### single OR default export
 for Title component we can export it using 
-```sh
-
+```javascript
 # Title.jsx
 
 function Title(){
@@ -314,7 +327,7 @@ export default Title
 
 then we need to import it in App.jsx using
 
-```sh
+```javascript
 
 # App.jsx
 
@@ -327,7 +340,7 @@ We can also have both single and default export in same file and can import it i
 we have to use import for single component like {comp1, comp2} and default using only name.
 i.e
 
-```sh
+```javascript
 # Title
 export function Description1(){
   return(
@@ -370,7 +383,7 @@ import {Description2} from "./Title"
 
 Any code written inside {} in jsx is treated as pure javascript
 i.e
-```sh
+```javascript
 function Title(){
     let name = "gaurang"
     return(
@@ -390,7 +403,7 @@ We must import repeating component into one component and then use that one to r
 for a product with description and title we must made it one and then render it in App.jsx 
 i.e product * 3 --> product tab --> App.jsx
 
-```sh
+```javascript
 # Product.jsx
 
 function Product(){
@@ -439,7 +452,7 @@ In React we can not return multiple tag but we can return a parent tag with all 
 But for this we need to create a extra div block which is not good. So we can use react fragment.
 which is part of React module which should be imported first
 i.e:-
-```sh
+```javascript
 import React from "react";
 function Product(props){
     return(
@@ -462,13 +475,14 @@ ProductTab.js  --> ProductTab.css
 
 we need to import css file 
 i.e for Product.jsx
+```javascript
 import "./Product.css"
-
+```
 ## Rendering List/Array
 
 To render an array or list in react we mostly use map method to render array as list item
 ie
-```sh
+```javascript
 function App(){
   let fruits =  ["Apple","grape","banana"]
   return(
@@ -486,8 +500,10 @@ this will render all items as list.
 In react/jsx to data can be sent across component in hierarchy (from parent to child).
 we send data using attribute or key/value pair in calling child tag.
 i.e To passing data to component product
+```javascript
 let item = {"id":1,"name":"gaurang"}
-<Product key=item.id name=item.name/>
+<Product key={item.id} name={item.name}/>
+```
 
 this data will be sent to Product component using prop object.
 prop is an default object in which this values are appended 
@@ -498,7 +514,7 @@ we can just use this prop to access values
 i.e:- prop.key or prop.name
 
 Example of using prop
-```sh
+```javascript
 # App.jsx
 import Product  from "./Product.jsx"
 function App(){
@@ -528,7 +544,7 @@ function Product(prop){
 ```
 
 Example with parent child and grand child
-```sh
+```javascript
 # App.jsx
 
 import "./App.css"
@@ -588,12 +604,15 @@ export default Product
 we can pass prop as a variable like name = "gaurang", 
 but if we have an object we can automatically spread it and we can use it directly.
 i.e
+```javascript
 let obj={name:"gaurang",age:21}
 <Restaurant {...obj}>
+```
 
 It will pass prop automatically like 
-<Restaurant name="gaurang" age=21>
-
+```javascript
+<Restaurant name="gaurang" age={21}>
+```
 
 ## Conditional Rendering
 1. In react we can do conditional rendering anywhere in {} using && operator or ? : operator
@@ -601,18 +620,21 @@ It will pass prop automatically like
 2. In && any condition of left if is true then right side part will be executed/rendered
 It returns first falsy value or a component
 i.e
+```javascript
 const islogged = true
 {islogged  && <Logout/>}
 if islogged is is true it will return Logout.
-
+// OR
 const islogged = false
 {islogged  && <Logout/>}
 if islogged is is true it will return false (value of islogged).
+```
 
 3. using if else
 we cannot directly use if else to render component in return statement because of {} (we need to write in it)
 but we can use a function to write our condition in and call function in our retuns
 i.e 
+```javascript
 const isLogged = false;
 const renderOne = ()=>{
   if(!isLogged){
@@ -622,13 +644,14 @@ const renderOne = ()=>{
     return <Logout/>
   }
 }
+```
 
 this shows buttons to either logout or login according to isLogged status.
-
 
 ## One and Two way data binding (Namste react) and event handing and input taking
 React only supports one way data binding which means we can only pass data/props from parent to child or (from var to input, and not from input to var). 
 i.e
+```javascript
 let search = "value"
 <input type="text"
     value={search}
@@ -640,6 +663,7 @@ const [searchtxt, setSeachTxt] = useState("")
   value={searchtxt}
   onChange={(e)=>{setSeachTxt(e.target.value)}}/> // Here state variable set method allow us to do two way data binding.
 <button>Search - {searchtxt}</button>
+```
 
 
 ## useState()/Hooks in react
@@ -654,12 +678,14 @@ So when we change value of variable it will be changed/rendered everywhere.
 
 To create a variable using useState() we create it 
 i.e
-```sh
+```javascript
 let [count,setCount] = useState();
 ```
 useState returns array with a variable and a setter function we need to destructure it to use it.
 We can set default value by passing argument to useState().
+```javascript
 let [count,setCount] = useState("0");  
+```
 Set count to 0 by default.
 
 ## Updater Function
@@ -667,29 +693,33 @@ Set count to 0 by default.
 It is a function passed as a argument to update state of variable 
 When updating a count of variable we might call setCount() one or more time
 i.e
+```javascript
 value of count = 0
 
 function handler(){
   setCount(count + 1)
   setCount(count + 1)
 } 
-
+```
 But it will result to value of count = 1
 Because react will batch/combine all setCount method and run it where state of count always stays 0 until updated.
 like:
 
+```javascript
 setCount(count + 1)   #setCount(0 + 1)
 setCount(count + 1)   #setCount(0 + 1)
 setCount(count + 1)   #setCount(0 + 1)
-
+```
 after last call count will be updated to 1
 
 So we can use updater function / pass a function to update count value
 i.e
 
+```javascript
 setCount((preValue) => preValue + 1)     #setCount(0 => 0 + 1)
 setCount((preValue) => preValue + 1)     #setCount(1 => 1 + 1)
 setCount((preValue) => preValue + 1)     #setCount(2 => 2 + 1)
+```
 
 updater function takes pending state to calculate next state.  # current state = 0, pending state = 0, 1 ,2 (each after function call)
 react puts updater function into queue and execute all at next render.
@@ -701,7 +731,7 @@ It is good practice to use **updater function even for single update**
 
 we can assign a object to variable
 i.e
-```sh
+```javascript
 let [car,setCar] = useState({year:2024,
                               brand:"Ford",
                               model:"mustang"})
@@ -709,7 +739,7 @@ let [car,setCar] = useState({year:2024,
 
 how to change using setCar()
 
-```sh
+```javascript
     function change(e){
     setCar(prevCar => ({...prevCar,year : e.target.value}))
   }
@@ -738,27 +768,32 @@ i.e
 1. when we want to execute code every time our component render we can create a useEffect with only one callback function to execute
 
 i.e
+```javascript
 useEffect(()=>{
     console.log("executed at every time render")
     },);
-
+```
 2. when we want to execute some code only once when our component render for first time we can pass a callback executor and a empty array (dependency array) to useEffect().
 
 i.e
+```javascript
 useEffect(()=>{
     console.log("executed at every time render")
     },[]); // will execute only once after first render
 useEffect(()=>{
     console.log("executed at every time render")
     },[]); // will execute only once after first render
+```
 
 3. every time some state variable changes we can pass a array of state variables called dependency array. and callback executor.
 
 i.e
+```javascript
 const [status, setStatus] = useStatus("offline");
 useEffect(()=>{
     console.log("executed at every time render")
-    },[status]); // will execute every time when variable changes. 
+    },[status]); // will execute every time when variable changes.
+``` 
 
 ### clean up function of useEffect
 Clean up funciton of useEffect is used to execute function or code when our component is going to unmount or rerender.
@@ -962,6 +997,7 @@ function submit(data){
 we can show  our errors in field using errors object which provided by react-hook-form and provide object and name of input used to registed it which has message and type of error.
 i.e 
 if our input which is registered as name has minlenght:6 and message:"not working"
+```javascript
 errors{
   name:{
     type:minlength,
@@ -972,6 +1008,7 @@ errors{
     message:"text not working"
   }
 }  
+```
 
 we can access this error.name.message to print error 
 AND 
@@ -1001,26 +1038,29 @@ function submit(data){
 <form onSubmit={handleSubmit(submit)} >
 <input type="submit" disabled={isSubmitting}>
 </form>
-
 ```
 
 ## React-router-dom
 
 While using react-router-dom for navigation in our web app we can setup and use it we need to Install it
 i.e
+```javascript
 npm i react-router-dom
-
+```
 ### Creating Routes 
 we can creates route for application using createBrowserRouter by specifing each route in an array as object like
 1. create route
-2. use <RouterProvider routes={routes} />
+2. use ```javascript
+<RouterProvider routes={routes} />
 [{
   path:"",
   element:"",
   children:{}
 },]
+```
 
 i.e
+```javascript
 import {createBrowserRouter} from "react-router-dom
 
 const App = ()=>{
@@ -1041,11 +1081,13 @@ const App = ()=>{
     ]
   )
 }
+```
 
 ### Using routes 
 To  use our routes we first need to return RouterProvider and pass our router(with routes) inside it, then according to our route component will be loaded into App component.
 i.e 
-import {createBrowserRouter, RouterProvider} from "react-router-dom
+```javascript
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 
 const App = ()=>{
   const routes = createBrowserRouter(
@@ -1068,6 +1110,7 @@ const App = ()=>{
     <RouterProvider router={routes}>
   )
 }
+```
 
 Now we can use our routes to access specific components.
 
@@ -1075,9 +1118,11 @@ Now we can use our routes to access specific components.
 we can use Link or NavLink instead of <a></a> tag as it will reload whole page.
 we can use Link and NavLink with a prop to="/", which routes to specific route.
 i.e
+```javascript
 <Link to="/">Home</Link>
 <Link to="/about">About</Link>
 <Link to="/user">User</Link>
+```
 
 #### Diff btw Link vs NavLink
 Link and NavLink are both almost similar but NavLink provide different values from props to know state of link and add class accordingly
@@ -1097,6 +1142,7 @@ i.e
 we can render component based on specific route using placeholder after (:)
 Like ---> /user/:id
 i.e
+```javascript
 const App = ()=>{
   const routes = createBrowserRouter(
     [
@@ -1118,6 +1164,7 @@ const App = ()=>{
     <RouterProvider router={routes}>
   )
 }
+```
 
 so when we will visit path like /user/123 OR /user/gaurang OR /user/gavu1123 it will load UserId component.
 
@@ -1125,12 +1172,16 @@ so when we will visit path like /user/123 OR /user/gaurang OR /user/gavu1123 it 
 Now we can use the id placeholder from our url to access specific data or something or get the id value.
 To get  id value we use useParams.
 i.e
+```javascript
 const {id} = useParams()
+```
 
 there might be multiple parameters for url/route like /user/:id/:reportno
 
 we can access them like 
+```javascript
 const {id,reportno} = useParams()
+```
 
 we can than use the data to show or load specific values.
 
@@ -1143,6 +1194,7 @@ We can create nested routes like
 
 using i.e
 
+```javascript
 const App = ()=>{
   const routes = createBrowserRouter(
     [
@@ -1170,11 +1222,13 @@ const App = ()=>{
     <RouterProvider router={routes}>
   )
 }
+```
 
 #### use nested component using outlet
 to use nested component inside out parent/main component we need to use outlet to render our child component 
 Like incase of /user/profile we need to render <UserProfile> inside <User>
 
+```javascript
 import {outlet} from "react-router-dom"
 const User = ()=>{
   return{
@@ -1184,6 +1238,7 @@ const User = ()=>{
     </>
   }
 }
+```
 
 this will render the component inplace out outlet accoring to the route 
 like 
@@ -1194,6 +1249,7 @@ for UserReport will load <UserReport/>
 When we want to navigate user from a page to another using a btn click we can do this by using useNavigate().
 useNavigate will provide us method which will reroute us according to path given.
 i.e
+```javascript
 import {useNavigation} from "react-router-dom"
 const App = ()=>{
   const navigate = useNavigate();
@@ -1204,6 +1260,7 @@ const App = ()=>{
     <button onClick={onClickme}>Click ME</button>
   )
 }
+```
 
 this will navigate user to path "/".
 
@@ -1211,6 +1268,7 @@ this will navigate user to path "/".
 we can create a route to path "*" which will render same component for all not know or illegal path.
 i.e
 
+```javascript
 const App = ()=>{
   const routes = createBrowserRouter(
     [
@@ -1232,6 +1290,7 @@ const App = ()=>{
     <RouterProvider router={routes}>
   )
 }
+```
 
 ### useSearchParams()
 It help use to handle the query string parameters like
@@ -1240,6 +1299,7 @@ It help use to handle the query string parameters like
 this query is written after a path and we can use useSearchParam to get the query in the component
 useSearchParam return an array which has a object, which has a get method, which is used to get parameter value based on name (when have multiple parameters).
 i.e 
+```javascript
 const App = ()=>{
   const routes = createBrowserRouter(
     [
@@ -1253,11 +1313,13 @@ const App = ()=>{
     <RouterProvider router={routes}>
   )
 }
+```
 
 -----> Search.jsx
 
 for url like localhost:1234/search?q=react&sort=latest
 
+```javascript
 import {useSearchParams} from "react-router-dom"
 const Search=()=>{
   const [seachParam] = useSearchParams();
@@ -1270,23 +1332,28 @@ return (
     </div>
 )
 }
+```
 
 export default Search
 
 ### <Navigate> component
 we can use Navigate  component to navigate to the path.
 i.e
+```javascript
 if(!user){
   <Navigate to="/" >
 }
+```
 
 This will navigate us to "/" path if the user is not set.
 we can also set replace prop (without value) to not add the last visited path from where we are navigate into history of browser
 i.e after Login and navigate to another path we do not need to navigate back to the login path. so we can use repace.
 i.e ---> Login.jsx
+```javascript
 if(username=="gaurang" && password=="correct"){
   <Navigate to="/home" replace />     // This will not add the login path to history so on clicking back btn user cannot go to login path again.
 }
+```
 
 
 
@@ -1305,6 +1372,7 @@ i.e
  report   report
 
 1. Lift state to nearest common parent
+```javascript
 import {useState} from "react"
 const App = ()=>{
   const [marks,setMarks] = useState(70)
@@ -1316,10 +1384,11 @@ const Report =({marks, setMarks})=>{
   return(
     <div>
     <p>show marks: {marks}</p>
-    <button onClick(()=>{setMarks(marks + 1)})> ADD +1 <button>
+    <button onClick={()=>{setMarks(marks+1)}}>ADD +1</button>
     </div>
   )
 }
+```
 
 ## UseContext() hook / Api
 To pass information to child and grand child componenet we used props
@@ -1338,23 +1407,29 @@ To avoid this and use/pass data more efficiently we can use useContext()
 
 To use useContext we need to follow this steps
 1. create context using usecontext()
-i.e const UserContext = useContext()
+i.e ```javascript
+const UserContext = useContext()
+```
 
 2. create a state or value to pass using useContext().
 i.e 
+```javascript
 const [user,setUser] = useState({name:"gaurang",email:"gau@email.com"});
+```
 
 3. wrap app or top most parent component with <context.Provider> and pass **value or multiple value as object**, also export the context.
 i.e
+```javascript
 <UserContext.Provider value={{user,setUser}}> 
 <!-- <UserContext.Provider values={user}>  -->
 <ChildA>
 <UserContext.Provider/>
 
-export {UserConstext}
-
+export UserContext
+```
 4. in ChildB or where you want to use context,import context and useContext and using useContext(UserContext) we can get value passed from context.
 i.e
+```javascript
 import UserContext from '../../index.js' 
 import {useContext} from 'react'
 
@@ -1365,13 +1440,18 @@ return(
   <p>{email}</p>
   </>
 )
+```
 
 OR
 IF SENT LIKE
+```javascript
 <UserContext.Provider values={setUser}> 
+```
 we can direclty get setUser.
 
+```javascript
 const setUser = useContext(UserContext)
+```
 
 We can use Context Api like this.
 
@@ -1380,39 +1460,49 @@ useRef() allow us to store reference of a dom element or a variable thats not ne
 
 ### refering local variable
 i.e
+```javascript
 let value = useRef()
+```
 It will create a object with key current set as undefined.
 i.e
+```javascript
 value = {
   current : undefined;
 }
+```
 
 we can change value using --> value.current = 10;
 
 ### passing initial value
 we can also pass initial value to set initial value.
 i.e 
+```javascript
 let value = useRef(10) 
-
+```
 will set 
+```javascript
 value = {
   current:10;
 }
+```
 
 ### refering dom element
 we can also refer to a dom element using useRef() and set a attribute ref to our html element and set value to name of ref.
 i.e
+```javascript
 const btn = useRef()
 useEffect(()=>{                             
   btn.current.style.backgroundColor = "red"      // Must be used inside useEffect as btn will only assigned after component render
 })
-<button ref{btn}>Click me</button>
+<button ref={btn}>Click me</button>
+```
 
 now our btn.current will have <button> element
 which can be use to style or don anything on it
 i.e 
+```javascript
 btn.current.style.backgroundColor = "red"; 
-
+```
 
 ## useMemo() 
 useMemo() is used to memoize/cache the output of a expensive calculation or function. 
@@ -1423,7 +1513,9 @@ It will return last saved value for same input.
 we can use useMemo()
 i.e
 
+```javascript
 let memoizevalue = useMemo(()=>calucativeFunction,[dependency array])
+```
 
 calucativeFunction is the expensive function whose result we want to track.
 and dependency array is all variable whose value change calls the function.
@@ -1450,7 +1542,6 @@ i.e
     <p>{sumChange}</p>
     </div>
   )
-
 ```
 While using useMemo we can only set dependency array value to those at whose value change we want to call calculativeFunction.
 **If we use object we need to check if value is changed before setting the value otherwise it will always rewrite the value of object changing value and calling calculate().**
@@ -1561,24 +1652,39 @@ export default Parent;
 It is used to maintain functions which are used to operate on state when functions are complex and big to manage.
 We use it when we have complex state to manage 
 i.e
+```javascript
 state={
   something:something,
   something:something,
   something:[something,something,something,],
   }
+```
 but if we have normal or state which is not complex we can use useState 
 i.e state = 20 OR state="hello"
 
 useReducer is similar to useState which returns a state variable and a function.
-i.e const [state, dispatch] = useReducer(reducer,{count:0}) 
+i.e 
+```javascript
+const [state, dispatch] = useReducer(reducer,{count:0}) 
+```
 
 ### reducer
 **IMP START**
 reducer performs resetting on state (state is immutable) according to the type it has received. and payload of action
-i.e type = increment => return state+1    OR    type = decrement => return state-1
+i.e 
+```javascript
+type = increment => return state+1
+```    
+OR    
+```javascript
+type = decrement => return state-1
+```
 or 
-IF complex state={id:1,name:"gaurang",location:"rajkot"}
+IF complex 
+```javascript
+state={id:1,name:"gaurang",location:"rajkot"},
 type = "change location", payload = "veraval" => return {...state,location=action.payload}
+```
 
 
 **IMP END**
@@ -1586,16 +1692,18 @@ It takes a reducer function which has two parameters state and action.
 where state would be variable created by a useReducer, and a action which would be a object conataining type key with value of what to do.
 The reducer function will get its action from the dispatch function. 
 i.e
+```javascript
 function reducer(state, action){
-
   return state
 }
+```
 
 where action would be like {type:"increment"} or {type:"decrement"} which it will receive from dispatch.
 
 ### dispatch
 dispatch function is called from the handler function and it should pass type and payload as argument i.e {type:"change location",payload:"veraval"}
 i.e
+```javascript
 ()=>{
   dispatch({type:"increment"})
 }
@@ -1604,6 +1712,7 @@ reducer(state, action)  ==> useReducer(reducer,{count:0}) ==> state & dispatch({
       ^                                                                  ∨
       |                                                                  |
       --------------------------------------------------------------------
+```
 
 i.e
 ```javascript
@@ -1646,10 +1755,14 @@ Action is used to define type of action to perform by achecking value of type.
 and a payload if any to change the value of the state.
 
 i.e Action and PAYLOAD for increment in reducer or handler function
+```javascript
 action={type:"Increment",payload:"{count:state.count+1}"} //IF const [state, dispatch] = useReducer(reducer,{count:0})
+```
 
 i.e Action and PAYLOAD for decrement
+```javascript
 action={type:"Decrement",payload:"{count:state.count-1}"} //IF const [state, dispatch] = useReducer(reducer,{count:0})
+```
 
 Dispatch: It is called with type and payload to invoke reducer function and update state according to type and payload.
 
@@ -1710,7 +1823,9 @@ using error boundries we can do
 4. log error and error stack (in console or file).
 
 i.e 
+```javascript
 npm install react-error-boundary
+```
 
 It provides us a component <ErrorBoundary/> which is used to wrap our nearest parent component in which we want to use error boundary (we can wrap particular component too).
 i.e
@@ -1838,8 +1953,10 @@ Portal in react allow us to add code into a specific dom parent
 i.e 
 Add code inide poratl class
 
+```javascript
 <div id="root">NOT RENDERED</div>
 <div class="portal"></div>
+```
 
 when ever our component will be rendered it will be added to the portal.
 
