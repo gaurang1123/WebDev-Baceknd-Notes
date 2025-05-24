@@ -379,7 +379,7 @@ import {Description2} from "./Title"
 
 ```
 
-## Using javascript {} in jsx
+## Using javascript in jsx
 
 Any code written inside {} in jsx is treated as pure javascript
 i.e
