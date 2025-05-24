@@ -14,10 +14,9 @@
 9. [React Fragment](#react-fragment)
 10. [Styling React Components](#styling-react-components)
 11. [Rendering listarray](#rendering-listarray)
-12. [USING PROPS](#using-props)
-13. [Conditional rendering](#conditional-rendering)
-14. [One and two way data binding and event handing and input taking](#one-and-two-way-data-binding-namste-react-and-event-handing-and-input-taking)
-15. [Usestatehooks in react](#usestatehooks-in-react)
+12. [Conditional rendering](#conditional-rendering)
+13. [One and two way data binding and event handing and input taking](#one-and-two-way-data-binding-namste-react-and-event-handing-and-input-taking)
+14. [Usestatehooks in react](#usestatehooks-in-react)
     - [Updater function](#updater-function)
     - [Update object using useState](#update-object-using-usestate)
 16. [Useeffect](#useeffect)
@@ -689,7 +688,7 @@ let [count,setCount] = useState("0");
 ```
 Set count to 0 by default.
 
-## Updater Function
+### Updater Function
 
 It is a function passed as a argument to update state of variable 
 When updating a count of variable we might call setCount() one or more time
@@ -728,7 +727,7 @@ react puts updater function into queue and execute all at next render.
 It is good practice to use **updater function even for single update** 
 
 
-## Update object using useState()
+### Update object using useState()
 
 we can assign a object to variable
 i.e
@@ -883,7 +882,7 @@ Body.js (component) where different ui is loaded
   </>
   ```
 
-## React Form Handing
+## React Form Handling
 We can create a form and handle the inputs using state and setState functions.
 
 ### Controlled components
@@ -943,7 +942,7 @@ onChange={handleNameChange}/>
 ```
 
 
-### Handling form using react-form-hook
+## Handling form using react-form-hook
 Using react-hook-form we can create form and use functionality like validation, error checks, isSubmitting, print error message.
 
 we need to install react-hook-form
@@ -959,7 +958,7 @@ const {register,handleSubmit,formState:{error, isSubmitting}} = useForm();
 
 now we can use them in our form.
 
-#### register:- 
+### register:- 
 It is use to register our form elements (input, select...) so that react-hook-form can track changes in it.
 in this we pass a name and fields which help us to set constraints on our input.
 i.e register(name,fields);
@@ -979,7 +978,7 @@ i.e
     }
     )} />
 ```
-#### handleSubmit:- 
+### handleSubmit:- 
 we can handle Submit and data using our handleSubmit(), we can pass our submit function and it gives us our data as object argument.
 so we can handle data like.
 
@@ -994,7 +993,7 @@ function submit(data){
 </form>
 
 ```
-#### errors:- 
+### errors:- 
 we can show  our errors in field using errors object which provided by react-hook-form and provide object and name of input used to registed it which has message and type of error.
 i.e 
 if our input which is registered as name has minlenght:6 and message:"not working"
@@ -1026,7 +1025,7 @@ i.e
     
 ```
 
-#### prevent multiple submission
+### prevent multiple submission
 we can use isSubmitting flag of formState to check weather the form is submitted or still submitting to prevent multiptle submit.
 we can disable our submit button when isSubmitting is true 
 
