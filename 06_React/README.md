@@ -1367,10 +1367,12 @@ then we can use setState() to change value in one child and will reflect change 
 
 For example to share state between two student report component with parent App
 i.e
+```javascript
       APP  (will have state and setState())
      /   \
     /     \ 
  report   report
+```
 
 1. Lift state to nearest common parent
 ```javascript
