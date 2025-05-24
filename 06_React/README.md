@@ -1407,7 +1407,8 @@ To avoid this and use/pass data more efficiently we can use useContext()
 
 To use useContext we need to follow this steps
 1. create context using usecontext()
-i.e ```javascript
+i.e 
+```javascript
 const UserContext = useContext()
 ```
 
