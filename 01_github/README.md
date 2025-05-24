@@ -113,7 +113,7 @@ to push into origin main without specifying origin.
 
 ## GITHUB BRANCHES
 
-1. Get branch name 
+1. List all branch name 
 ```sh
 git branch # get branch name
 ```
