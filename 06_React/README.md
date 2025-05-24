@@ -1393,6 +1393,7 @@ const Report =({marks, setMarks})=>{
 ## UseContext() hook / Api
 To pass information to child and grand child componenet we used props
 i.e
+```javascript
 APP (props)
  |
  |
@@ -1400,6 +1401,7 @@ ChildA (props)
  |
  |
 ChildB (props)
+```
 
 This is called prop drilling
 where we need to pass data to ChildA too even if doesnt want it.
