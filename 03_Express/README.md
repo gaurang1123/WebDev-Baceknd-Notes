@@ -108,19 +108,19 @@ app.get('/user/:id',(req,res)=>{
 
 ### Multiple parameter route
 ```sh
-app.get((/:user/:id),(req,res)=>{
-    req.send(`user = ${req.params.user}, id = ${req.params.id}`)
+app.get('/:user/:id',(req,res)=>{
+    res.send(`user = ${req.params.user}, id = ${req.params.id}`)
 });
 ```
 
 ### optional route parameter
 this are parameters which are optional
 ```sh
-app.get((/:user/:id/:order?),(req,res)=>{
+app.get('/:user/:id/:order?',(req,res)=>{
     if(req.params.order){
-    req.send(`user = ${req.params.user}, id = ${req.params.id}, optional = ${req.params.order}`)}
+    res.send(`user = ${req.params.user}, id = ${req.params.id}, optional = ${req.params.order}`)}
     else{
-    req.send(`user = ${req.params.user}, id = ${req.params.id}`)}
+    res.send(`user = ${req.params.user}, id = ${req.params.id}`)}
     }
 );
 ```
