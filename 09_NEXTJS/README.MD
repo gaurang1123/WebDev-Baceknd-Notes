@@ -238,8 +238,7 @@ Next will provide us a prop pramas which will return us [FolderName]:value we ca
 i.e
 ```javascript
 const Component = ({params}:{params:{DynamicFolderName: string}})=> {
-  const blogId = params.DynamicFolderName;
-
+    const blogId = params.id;
   return (
     <div>Blog ID: {blogId}</div>
   );
