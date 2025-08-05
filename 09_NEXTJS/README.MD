@@ -238,14 +238,11 @@ Next will provide us a prop pramas which will return us [FolderName]:value we ca
 i.e
 ```javascript
 const Component = ({params}:{params:{DynamicFolderName: string}})=> {
-  const {blogId, setBlogId} = useState("")
+  const blogId = params.DynamicFolderName;
 
-   useEffect(()=>{
-    async function getBlogId(){   // async function to get blogId
-    const {blog} = await params   //Using key to get value  
-    setBlogId(blog)    // set blogId
-  }
-  getBlogId()},[])
+  return (
+    <div>Blog ID: {blogId}</div>
+  );
 }
 ```
 
